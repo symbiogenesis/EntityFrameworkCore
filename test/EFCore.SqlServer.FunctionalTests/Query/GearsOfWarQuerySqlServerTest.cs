@@ -7731,8 +7731,11 @@ WHERE [g].[Discriminator] IN (N'Officer', N'Gear')
 ORDER BY [g].[Rank]");
         }
 
+        private void AssertSingleExecutionSql(params string[] expected)
+            => Fixture.TestSqlLoggerFactory.AssertBaseline(expected, singleExecution: true);
+
         private void AssertSql(params string[] expected)
-            => Fixture.TestSqlLoggerFactory.AssertBaseline(expected);
+            => Fixture.TestSqlLoggerFactory.AssertBaseline(expected, singleExecution: false);
 
         private void AssertContainsSql(params string[] expected)
             => Fixture.TestSqlLoggerFactory.AssertBaseline(expected, assertOrder: false);

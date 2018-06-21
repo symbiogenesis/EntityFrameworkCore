@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.TestUtilities;
 using Xunit;
@@ -16,6 +17,216 @@ namespace Microsoft.EntityFrameworkCore.Query
         protected QueryTestBase(TFixture fixture) => Fixture = fixture;
 
         protected TFixture Fixture { get; }
+
+        protected virtual Task AssertFirst<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<dynamic>> query,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            => AssertFirst(query, query, actualFirstPredicate: null, expectedFirstPredicate: null, asserter, entryCount, executionMode);
+
+        protected virtual Task AssertFirst<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<dynamic>> query,
+            Expression<Func<dynamic, bool>> firstPredicate,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            => AssertFirst(query, query, firstPredicate, firstPredicate, asserter, entryCount, executionMode);
+
+        protected virtual Task AssertFirst<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<dynamic>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<dynamic>> expectedQuery,
+            Expression<Func<dynamic, bool>> actualFirstPredicate,
+            Expression<Func<dynamic, bool>> expectedFirstPredicate,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            => Fixture.QueryAsserter2.AssertFirst(actualQuery, expectedQuery, actualFirstPredicate, expectedFirstPredicate, asserter, entryCount, executionMode);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #region AssertQuery
+
+        public Task AssertQuery<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> query,
+            Func<dynamic, object> elementSorter = null,
+            Action<dynamic, dynamic> elementAsserter = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            => Fixture.QueryAsserter2.AssertQuery(query, query, elementSorter, elementAsserter, assertOrder, entryCount, executionMode);
+
+        public Task AssertQuery<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            Func<dynamic, object> elementSorter = null,
+            Action<dynamic, dynamic> elementAsserter = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            => Fixture.QueryAsserter2.AssertQuery(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, executionMode);
+
+        public Task AssertQuery<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> query,
+            Func<dynamic, object> elementSorter = null,
+            Action<dynamic, dynamic> elementAsserter = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            where TItem2 : class
+            => Fixture.QueryAsserter2.AssertQuery(query, query, elementSorter, elementAsserter, assertOrder, entryCount, executionMode);
+
+        public Task AssertQuery<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            Func<dynamic, object> elementSorter = null,
+            Action<dynamic, dynamic> elementAsserter = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            where TItem2 : class
+            => Fixture.QueryAsserter2.AssertQuery(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, executionMode);
+
+        public Task AssertQuery<TItem1, TItem2, TItem3>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> query,
+            Func<dynamic, object> elementSorter = null,
+            Action<dynamic, dynamic> elementAsserter = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            where TItem2 : class
+            where TItem3 : class
+            => AssertQuery(query, query, elementSorter, elementAsserter, assertOrder, entryCount, executionMode);
+
+        public Task AssertQuery<TItem1, TItem2, TItem3>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> expectedQuery,
+            Func<dynamic, object> elementSorter = null,
+            Action<dynamic, dynamic> elementAsserter = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            where TItem2 : class
+            where TItem3 : class
+            => Fixture.QueryAsserter2.AssertQuery(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, executionMode);
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        #region AssertIncludeQuery
+
+        public Task<List<object>> AssertIncludeQuery<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> query,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            => AssertIncludeQuery(query, query, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, executionMode);
+
+        public Task<List<object>> AssertIncludeQuery<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            => Fixture.QueryAsserter2.AssertIncludeQuery(actualQuery, expectedQuery, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, executionMode);
+
+        public Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> query,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            where TItem2 : class
+            => AssertIncludeQuery(query, query, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, executionMode);
+
+        public Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            ExecutionMode executionMode = ExecutionMode.SyncAsync)
+            where TItem1 : class
+            where TItem2 : class
+            => Fixture.QueryAsserter2.AssertIncludeQuery(actualQuery, expectedQuery, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, executionMode);
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #region AssertSingleResult
 

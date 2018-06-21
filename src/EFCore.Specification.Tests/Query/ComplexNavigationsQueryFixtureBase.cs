@@ -178,9 +178,16 @@ namespace Microsoft.EntityFrameworkCore.Query
                 new ComplexNavigationsDefaultData(),
                 entitySorters,
                 entityAsserters);
+
+            QueryAsserter2 = new QueryAsserter2<ComplexNavigationsContext>(
+                CreateContext,
+                new ComplexNavigationsDefaultData(),
+                entitySorters,
+                entityAsserters);
         }
 
         public QueryAsserterBase QueryAsserter { get; set; }
+        public QueryAsserterBase2 QueryAsserter2 { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder, DbContext context)
         {
