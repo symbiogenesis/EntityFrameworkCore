@@ -18,6 +18,9 @@ namespace Microsoft.EntityFrameworkCore.Query
         {
             QueryAsserter.SetExtractor = new ComplexNavigationsOwnedSetExtractor();
             QueryAsserter.ExpectedData = new ComplexNavigationsOwnedData();
+
+            QueryAsserter2.SetExtractor = new ComplexNavigationsOwnedSetExtractor();
+            QueryAsserter2.ExpectedData = new ComplexNavigationsOwnedData();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder, DbContext context)

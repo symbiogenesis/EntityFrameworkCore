@@ -21,7 +21,7 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
 
         private static readonly string _eol = Environment.NewLine;
 
-        public void AssertBaseline(string[] expected, bool assertOrder = true, bool singleExecution = false)
+        public void AssertBaseline(string[] expected, bool assertOrder = true)
         {
             #if Test21
             if (expected != null)
@@ -31,22 +31,6 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
             #endif
 
             var sqlStatements = _logger.SqlStatements;
-
-            // cut in half, see that both halves are the same
-            if (!singleExecution)
-            {
-                Assert.True(sqlStatements.Count % 2 == 0);
-                var count = sqlStatements.Count / 2;
-                var firstHalf = sqlStatements.Take(count).ToList();
-                var secondHalf = sqlStatements.Skip(count).ToList();
-
-                for (var i = 0; i < count; i++)
-                {
-                    Assert.Equal(firstHalf[i], secondHalf[i]);
-                }
-
-                sqlStatements = firstHalf;
-            }
 
             try
             {

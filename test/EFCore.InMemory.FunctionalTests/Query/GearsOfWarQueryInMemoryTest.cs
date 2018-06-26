@@ -16,9 +16,9 @@ namespace Microsoft.EntityFrameworkCore.Query
         }
 
         [ConditionalFact(Skip = "issue #12295")]
-        public override Task Double_order_by_on_nullable_bool_coming_from_optional_navigation()
+        public override Task Double_order_by_on_nullable_bool_coming_from_optional_navigation(bool isAsync)
         {
-            return base.Double_order_by_on_nullable_bool_coming_from_optional_navigation();
+            return base.Double_order_by_on_nullable_bool_coming_from_optional_navigation(isAsync);
         }
     }
 }
