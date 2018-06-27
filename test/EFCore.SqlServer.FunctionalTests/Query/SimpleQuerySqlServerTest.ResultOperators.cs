@@ -894,9 +894,9 @@ WHERE 0 = 1");
 FROM [Customers] AS [c]");
         }
 
-        public override void Contains_top_level()
+        public override async Task Contains_top_level(bool isAsync)
         {
-            base.Contains_top_level();
+            await base.Contains_top_level(isAsync);
 
             AssertSql(
                 @"@__p_0='ALFKI' (Size = 4000)

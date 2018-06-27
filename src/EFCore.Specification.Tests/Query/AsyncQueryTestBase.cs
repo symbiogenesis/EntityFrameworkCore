@@ -245,72 +245,72 @@ namespace Microsoft.EntityFrameworkCore.Query
 
         #endregion
 
-        #region AssertQuery
+        //#region AssertQuery
 
-        public virtual Task AssertQueryAsync<TItem1>(
-            Func<IQueryable<TItem1>, IQueryable<object>> query,
-            Func<dynamic, object> elementSorter = null,
-            Action<dynamic, dynamic> elementAsserter = null,
-            bool assertOrder = false,
-            int entryCount = 0)
-            where TItem1 : class
-            => Fixture.QueryAsserter.AssertQueryAsync(query, query, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
+        //public virtual Task AssertQueryAsync<TItem1>(
+        //    Func<IQueryable<TItem1>, IQueryable<object>> query,
+        //    Func<dynamic, object> elementSorter = null,
+        //    Action<dynamic, dynamic> elementAsserter = null,
+        //    bool assertOrder = false,
+        //    int entryCount = 0)
+        //    where TItem1 : class
+        //    => Fixture.QueryAsserter.AssertQueryAsync(query, query, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
 
-        public virtual Task AssertQueryAsync<TItem1>(
-            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
-            Func<dynamic, object> elementSorter = null,
-            Action<dynamic, dynamic> elementAsserter = null,
-            bool assertOrder = false,
-            int entryCount = 0)
-            where TItem1 : class
-            => Fixture.QueryAsserter.AssertQueryAsync(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
+        //public virtual Task AssertQueryAsync<TItem1>(
+        //    Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+        //    Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+        //    Func<dynamic, object> elementSorter = null,
+        //    Action<dynamic, dynamic> elementAsserter = null,
+        //    bool assertOrder = false,
+        //    int entryCount = 0)
+        //    where TItem1 : class
+        //    => Fixture.QueryAsserter.AssertQueryAsync(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
 
-        public virtual Task AssertQueryAsync<TItem1, TItem2>(
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> query,
-            Func<dynamic, object> elementSorter = null,
-            Action<dynamic, dynamic> elementAsserter = null,
-            bool assertOrder = false,
-            int entryCount = 0)
-            where TItem1 : class
-            where TItem2 : class
-            => Fixture.QueryAsserter.AssertQueryAsync(query, query, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
+        //public virtual Task AssertQueryAsync<TItem1, TItem2>(
+        //    Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> query,
+        //    Func<dynamic, object> elementSorter = null,
+        //    Action<dynamic, dynamic> elementAsserter = null,
+        //    bool assertOrder = false,
+        //    int entryCount = 0)
+        //    where TItem1 : class
+        //    where TItem2 : class
+        //    => Fixture.QueryAsserter.AssertQueryAsync(query, query, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
 
-        public virtual Task AssertQueryAsync<TItem1, TItem2>(
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
-            Func<dynamic, object> elementSorter = null,
-            Action<dynamic, dynamic> elementAsserter = null,
-            bool assertOrder = false,
-            int entryCount = 0)
-            where TItem1 : class
-            where TItem2 : class
-            => Fixture.QueryAsserter.AssertQueryAsync(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
+        //public virtual Task AssertQueryAsync<TItem1, TItem2>(
+        //    Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+        //    Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+        //    Func<dynamic, object> elementSorter = null,
+        //    Action<dynamic, dynamic> elementAsserter = null,
+        //    bool assertOrder = false,
+        //    int entryCount = 0)
+        //    where TItem1 : class
+        //    where TItem2 : class
+        //    => Fixture.QueryAsserter.AssertQueryAsync(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
 
-        public virtual Task AssertQueryAsync<TItem1, TItem2, TItem3>(
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> query,
-            Func<dynamic, object> elementSorter = null,
-            Action<dynamic, dynamic> elementAsserter = null,
-            bool assertOrder = false,
-            int entryCount = 0)
-            where TItem1 : class
-            where TItem2 : class
-            where TItem3 : class
-            => Fixture.QueryAsserter.AssertQueryAsync(query, query, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
+        //public virtual Task AssertQueryAsync<TItem1, TItem2, TItem3>(
+        //    Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> query,
+        //    Func<dynamic, object> elementSorter = null,
+        //    Action<dynamic, dynamic> elementAsserter = null,
+        //    bool assertOrder = false,
+        //    int entryCount = 0)
+        //    where TItem1 : class
+        //    where TItem2 : class
+        //    where TItem3 : class
+        //    => Fixture.QueryAsserter.AssertQueryAsync(query, query, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
 
-        public virtual Task AssertQueryAsync<TItem1, TItem2, TItem3>(
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> expectedQuery,
-            Func<dynamic, object> elementSorter = null,
-            Action<dynamic, dynamic> elementAsserter = null,
-            bool assertOrder = false,
-            int entryCount = 0)
-            where TItem1 : class
-            where TItem2 : class
-            where TItem3 : class
-            => Fixture.QueryAsserter.AssertQueryAsync(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
+        //public virtual Task AssertQueryAsync<TItem1, TItem2, TItem3>(
+        //    Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> actualQuery,
+        //    Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> expectedQuery,
+        //    Func<dynamic, object> elementSorter = null,
+        //    Action<dynamic, dynamic> elementAsserter = null,
+        //    bool assertOrder = false,
+        //    int entryCount = 0)
+        //    where TItem1 : class
+        //    where TItem2 : class
+        //    where TItem3 : class
+        //    => Fixture.QueryAsserter.AssertQueryAsync(actualQuery, expectedQuery, elementSorter, elementAsserter, assertOrder, entryCount, isAsync: true);
 
-        #endregion
+        //#endregion
 
         #region AssertQueryScalar
 

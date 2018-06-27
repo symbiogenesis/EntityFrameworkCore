@@ -998,18 +998,26 @@ namespace Microsoft.EntityFrameworkCore.Query
                 predicate: c => c.ContactName.StartsWith(c.ContactName));
         }
 
-        [ConditionalFact]
-        public virtual void All_top_level_subquery()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task All_top_level_subquery(bool isAsync)
         {
-            AssertSingleResult<Customer>(
-                cs => cs.All(c1 => cs.Any(c2 => cs.Any(c3 => c1.CustomerID == c3.CustomerID))));
+            return AssertSingleResult<Customer>(
+                isAsync,
+                syncQuery: cs => cs.All(c1 => cs.Any(c2 => cs.Any(c3 => c1.CustomerID == c3.CustomerID))),
+                asyncQuery: cs => cs.AllAsync(c1 => cs.Any(c2 => cs.Any(c3 => c1.CustomerID == c3.CustomerID))));
         }
 
-        [ConditionalFact]
-        public virtual void All_top_level_subquery_ef_property()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task All_top_level_subquery_ef_property(bool isAsync)
         {
-            AssertSingleResult<Customer>(
-                cs => cs.All(c1 => cs.Any(c2 => cs.Any(c3 => EF.Property<string>(c1, "CustomerID") == c3.CustomerID))));
+            return AssertSingleResult<Customer>(
+                isAsync,
+                syncQuery: cs => cs.All(c1 => cs.Any(c2 => cs.Any(c3 => EF.Property<string>(c1, "CustomerID") == c3.CustomerID))),
+                asyncQuery: cs => cs.AllAsync(c1 => cs.Any(c2 => cs.Any(c3 => EF.Property<string>(c1, "CustomerID") == c3.CustomerID))));
         }
 
         [Theory]
@@ -4717,15 +4725,23 @@ namespace Microsoft.EntityFrameworkCore.Query
                 e => e.CustomerID);
         }
 
-        [ConditionalFact]
-        public virtual void Anonymous_member_distinct_result()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Anonymous_member_distinct_result(bool isAsync)
         {
-            AssertSingleResult<Customer>(
-                cs => cs.Select(
+            return AssertSingleResult<Customer>(
+                isAsync,
+                syncQuery: cs => cs.Select(
                     c => new
                     {
                         c.CustomerID
-                    }).Distinct().Count(n => n.CustomerID.StartsWith("A")));
+                    }).Distinct().Count(n => n.CustomerID.StartsWith("A")),
+                asyncQuery: cs => cs.Select(
+                    c => new
+                    {
+                        c.CustomerID
+                    }).Distinct().CountAsync(n => n.CustomerID.StartsWith("A")));
         }
 
         [Theory]
@@ -4758,15 +4774,23 @@ namespace Microsoft.EntityFrameworkCore.Query
                 e => e.A);
         }
 
-        [ConditionalFact]
-        public virtual void Anonymous_complex_distinct_result()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Anonymous_complex_distinct_result(bool isAsync)
         {
-            AssertSingleResult<Customer>(
-                cs => cs.Select(
+            return AssertSingleResult<Customer>(
+                isAsync,
+                syncQuery: cs => cs.Select(
                     c => new
                     {
                         A = c.CustomerID + c.City
-                    }).Distinct().Count(n => n.A.StartsWith("A")));
+                    }).Distinct().Count(n => n.A.StartsWith("A")),
+                asyncQuery: cs => cs.Select(
+                    c => new
+                    {
+                        A = c.CustomerID + c.City
+                    }).Distinct().CountAsync(n => n.A.StartsWith("A")));
         }
 
         [Theory]
@@ -4856,15 +4880,23 @@ namespace Microsoft.EntityFrameworkCore.Query
                 elementAsserter: (e, a) => Assert.Equal(e.Property, a.Property));
         }
 
-        [ConditionalFact]
-        public virtual void DTO_member_distinct_result()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task DTO_member_distinct_result(bool isAsync)
         {
-            AssertSingleResult<Customer>(
-                cs => cs.Select(
+            return AssertSingleResult<Customer>(
+                isAsync,
+                syncQuery: cs => cs.Select(
                     c => new DTO<string>
                     {
                         Property = c.CustomerID
-                    }).Distinct().Count(n => n.Property.StartsWith("A")));
+                    }).Distinct().Count(n => n.Property.StartsWith("A")),
+                asyncQuery: cs => cs.Select(
+                    c => new DTO<string>
+                    {
+                        Property = c.CustomerID
+                    }).Distinct().CountAsync(n => n.Property.StartsWith("A")));
         }
 
         [Theory]
@@ -4899,15 +4931,23 @@ namespace Microsoft.EntityFrameworkCore.Query
                 elementAsserter: (e, a) => Assert.Equal(e.Property, a.Property));
         }
 
-        [ConditionalFact]
-        public virtual void DTO_complex_distinct_result()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task DTO_complex_distinct_result(bool isAsync)
         {
-            AssertSingleResult<Customer>(
-                cs => cs.Select(
+            return AssertSingleResult<Customer>(
+                isAsync,
+                syncQuery: cs => cs.Select(
                     c => new DTO<string>
                     {
                         Property = c.CustomerID + c.City
-                    }).Distinct().Count(n => n.Property.StartsWith("A")));
+                    }).Distinct().Count(n => n.Property.StartsWith("A")),
+                asyncQuery: cs => cs.Select(
+                    c => new DTO<string>
+                    {
+                        Property = c.CustomerID + c.City
+                    }).Distinct().CountAsync(n => n.Property.StartsWith("A")));
         }
 
         [Theory]

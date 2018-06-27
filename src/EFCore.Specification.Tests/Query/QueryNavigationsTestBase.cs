@@ -1507,5 +1507,19 @@ namespace Microsoft.EntityFrameworkCore.Query
                             },
                 elementSorter: e => e.G);
         }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Multiple_include_with_multiple_optional_navigations(bool isAsync)
+        {
+            return AssertQuery<OrderDetail>(
+                isAsync,
+                ods => ods
+                    .Include(od => od.Order.Customer)
+                    .Include(od => od.Product)
+                    .Where(od => od.Order.Customer.City == "London"),
+                entryCount: 221);
+        }
     }
 }

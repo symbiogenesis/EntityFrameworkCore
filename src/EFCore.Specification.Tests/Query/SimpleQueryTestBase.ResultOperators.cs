@@ -1297,10 +1297,15 @@ namespace Microsoft.EntityFrameworkCore.Query
                 cs => cs.Where(c => !(new List<string>().Contains(c.CustomerID))), entryCount: 91);
         }
 
-        [ConditionalFact]
-        public virtual void Contains_top_level()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Contains_top_level(bool isAsync)
         {
-            AssertSingleResult<Customer>(cs => cs.Select(c => c.CustomerID).Contains("ALFKI"));
+            return AssertSingleResult<Customer>(
+                isAsync,
+                syncQuery: cs => cs.Select(c => c.CustomerID).Contains("ALFKI"),
+                asyncQuery: cs => cs.Select(c => c.CustomerID).ContainsAsync("ALFKI"));
         }
 
         [Theory]

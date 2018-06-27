@@ -100,6 +100,55 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
 
         #endregion
 
+        #region AssertIncludeQuery
+
+        public abstract Task<List<object>> AssertIncludeQuery<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class;
+
+        #endregion
+
+        #region AssertSingleResult
+
+        public abstract Task AssertSingleResult<TItem1>(
+            Func<IQueryable<TItem1>, object> actualSyncQuery,
+            Func<IQueryable<TItem1>, Task<object>> actualAsyncQuery,
+            Func<IQueryable<TItem1>, object> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertSingleResult<TItem1, TResult>(
+            Func<IQueryable<TItem1>, TResult> actualSyncQuery,
+            Func<IQueryable<TItem1>, Task<TResult>> actualAsyncQuery,
+            Func<IQueryable<TItem1>, TResult> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
+
         #region AssertAny
 
         public abstract Task AssertAny<TItem1>(
@@ -558,33 +607,6 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
             Action<object, object> asserter = null,
             bool isAsync = false)
             where TItem1 : class;
-
-        #endregion
-
-        #region AssertIncludeQuery
-
-        public abstract Task<List<object>> AssertIncludeQuery<TItem1>(
-            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
-            List<IExpectedInclude> expectedIncludes,
-            Func<dynamic, object> elementSorter = null,
-            List<Func<dynamic, object>> clientProjections = null,
-            bool assertOrder = false,
-            int entryCount = 0,
-            bool isAsync = false)
-            where TItem1 : class;
-
-        public abstract Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
-            List<IExpectedInclude> expectedIncludes,
-            Func<dynamic, object> elementSorter = null,
-            List<Func<dynamic, object>> clientProjections = null,
-            bool assertOrder = false,
-            int entryCount = 0,
-            bool isAsync = false)
-            where TItem1 : class
-            where TItem2 : class;
 
         #endregion
     }

@@ -1373,35 +1373,66 @@ namespace Microsoft.EntityFrameworkCore.Query
 
         #endregion
 
+        #region AssertSingleResult
 
+        protected Task AssertSingleResult<TItem1>(
+            bool isAsync,
+            Func<IQueryable<TItem1>, object> syncQuery,
+            Func<IQueryable<TItem1>, Task<object>> asyncQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0)
+            where TItem1 : class
+            => AssertSingleResult(isAsync, syncQuery, asyncQuery, syncQuery, asserter, entryCount);
 
+        protected Task AssertSingleResult<TItem1>(
+            bool isAsync,
+            Func<IQueryable<TItem1>, object> actualSyncQuery,
+            Func<IQueryable<TItem1>, Task<object>> actualAsyncQuery,
+            Func<IQueryable<TItem1>, object> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0)
+            where TItem1 : class
+            => Fixture.QueryAsserter2.AssertSingleResult(actualSyncQuery, actualAsyncQuery, expectedQuery, asserter, entryCount, isAsync);
 
+        protected Task AssertSingleResult<TItem1>(
+            bool isAsync,
+            Func<IQueryable<TItem1>, int> syncQuery,
+            Func<IQueryable<TItem1>, Task<int>> asyncQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0)
+            where TItem1 : class
+            => AssertSingleResult(isAsync, syncQuery, asyncQuery, syncQuery, asserter, entryCount);
 
+        protected Task AssertSingleResult<TItem1>(
+            bool isAsync,
+            Func<IQueryable<TItem1>, int> actualSyncQuery,
+            Func<IQueryable<TItem1>, Task<int>> actualAsyncQuery,
+            Func<IQueryable<TItem1>, int> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0)
+            where TItem1 : class
+            => Fixture.QueryAsserter2.AssertSingleResult(actualSyncQuery, actualAsyncQuery, expectedQuery, asserter, entryCount, isAsync);
 
+        protected Task AssertSingleResult<TItem1>(
+            bool isAsync,
+            Func<IQueryable<TItem1>, bool> syncQuery,
+            Func<IQueryable<TItem1>, Task<bool>> asyncQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0)
+            where TItem1 : class
+            => AssertSingleResult(isAsync, syncQuery, asyncQuery, syncQuery, asserter, entryCount);
 
+        protected Task AssertSingleResult<TItem1>(
+            bool isAsync,
+            Func<IQueryable<TItem1>, bool> actualSyncQuery,
+            Func<IQueryable<TItem1>, Task<bool>> actualAsyncQuery,
+            Func<IQueryable<TItem1>, bool> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0)
+            where TItem1 : class
+            => Fixture.QueryAsserter2.AssertSingleResult(actualSyncQuery, actualAsyncQuery, expectedQuery, asserter, entryCount, isAsync);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #endregion
 
         #region AssertSingleResult
 

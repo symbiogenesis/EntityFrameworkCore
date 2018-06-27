@@ -1305,9 +1305,9 @@ END");
 END");
         }
 
-        public override void All_top_level_subquery()
+        public override async Task All_top_level_subquery(bool isAsync)
         {
-            base.All_top_level_subquery();
+            await base.All_top_level_subquery(isAsync);
 
             AssertSql(
                 @"SELECT CASE
@@ -1330,9 +1330,9 @@ END");
 END");
         }
 
-        public override void All_top_level_subquery_ef_property()
+        public override async Task All_top_level_subquery_ef_property(bool isAsync)
         {
-            base.All_top_level_subquery_ef_property();
+            await base.All_top_level_subquery_ef_property(isAsync);
 
             AssertSql(
                 @"SELECT CASE
@@ -3625,9 +3625,9 @@ FROM (
 ORDER BY [t].[CustomerID]");
         }
 
-        public override void Anonymous_member_distinct_result()
+        public override async Task Anonymous_member_distinct_result(bool isAsync)
         {
-            base.Anonymous_member_distinct_result();
+            await base.Anonymous_member_distinct_result(isAsync);
 
             AssertSql(
                 @"SELECT COUNT(*)
@@ -3664,9 +3664,9 @@ FROM (
 ORDER BY [t].[A]");
         }
 
-        public override void Anonymous_complex_distinct_result()
+        public override async Task Anonymous_complex_distinct_result(bool isAsync)
         {
-            base.Anonymous_complex_distinct_result();
+            await base.Anonymous_complex_distinct_result(isAsync);
 
             AssertSql(
                 @"SELECT COUNT(*)
@@ -3738,9 +3738,9 @@ FROM (
 ORDER BY [t].[Property]");
         }
 
-        public override void DTO_member_distinct_result()
+        public override async Task DTO_member_distinct_result(bool isAsync)
         {
-            base.DTO_member_distinct_result();
+            await base.DTO_member_distinct_result(isAsync);
 
             AssertSql(
                 @"SELECT COUNT(*)
@@ -3777,9 +3777,9 @@ FROM (
 ORDER BY [t].[Property]");
         }
 
-        public override void DTO_complex_distinct_result()
+        public override async Task DTO_complex_distinct_result(bool isAsync)
         {
-            base.DTO_complex_distinct_result();
+            await base.DTO_complex_distinct_result(isAsync);
 
             AssertSql(
                 @"SELECT COUNT(*)

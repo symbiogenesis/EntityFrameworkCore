@@ -344,44 +344,6 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #endregion
 
         #region AssertQueryNullableScalar
@@ -468,6 +430,243 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
                     e => e,
                     Assert.Equal,
                     assertOrder);
+            }
+        }
+
+        #endregion
+
+        #region AssertIncludeQuery
+
+        public Task<List<object>> AssertIncludeQuery<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> query,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class
+            => AssertIncludeQuery(query, query, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, isAsync);
+
+        public override async Task<List<object>> AssertIncludeQuery<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            bool isAsync = false)
+        {
+            using (var context = _contextCreator())
+            {
+                var actual = isAsync
+                    ? await actualQuery(
+                        SetExtractor.Set<TItem1>(context)).ToListAsync()
+                    : actualQuery(
+                        SetExtractor.Set<TItem1>(context)).ToList();
+
+                var expected = expectedQuery(ExpectedData.Set<TItem1>()).ToList();
+
+                if (!assertOrder)
+                {
+                    if (elementSorter == null)
+                    {
+                        var firstNonNullableElement = expected.FirstOrDefault(e => e != null);
+                        if (firstNonNullableElement != null)
+                        {
+                            _entitySorters.TryGetValue(firstNonNullableElement.GetType(), out elementSorter);
+                        }
+                    }
+
+                    if (elementSorter != null)
+                    {
+                        actual = actual.OrderBy(elementSorter).ToList();
+                        expected = expected.OrderBy(elementSorter).ToList();
+                    }
+                }
+
+                if (clientProjections != null)
+                {
+                    foreach (var clientProjection in clientProjections)
+                    {
+                        var projectedActual = actual.Select(clientProjection).ToList();
+                        var projectedExpected = expected.Select(clientProjection).ToList();
+
+                        _includeResultAsserter.AssertResult(projectedExpected, projectedActual, expectedIncludes);
+                    }
+                }
+                else
+                {
+                    _includeResultAsserter.AssertResult(expected, actual, expectedIncludes);
+                }
+
+                Assert.Equal(entryCount, context.ChangeTracker.Entries().Count());
+
+                return actual;
+            }
+        }
+
+        public Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> query,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class
+            => AssertIncludeQuery(query, query, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, isAsync);
+
+        public override async Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            List<IExpectedInclude> expectedIncludes,
+            Func<dynamic, object> elementSorter = null,
+            List<Func<dynamic, object>> clientProjections = null,
+            bool assertOrder = false,
+            int entryCount = 0,
+            bool isAsync = false)
+        {
+            using (var context = _contextCreator())
+            {
+                var actual = isAsync
+                    ? await actualQuery(
+                        SetExtractor.Set<TItem1>(context),
+                        SetExtractor.Set<TItem2>(context)).ToListAsync()
+                    : actualQuery(
+                        SetExtractor.Set<TItem1>(context),
+                        SetExtractor.Set<TItem2>(context)).ToList();
+
+                var expected = expectedQuery(
+                    ExpectedData.Set<TItem1>(),
+                    ExpectedData.Set<TItem2>()).ToList();
+
+                if (!assertOrder)
+                {
+                    if (elementSorter == null)
+                    {
+                        var firstNonNullableElement = expected.FirstOrDefault(e => e != null);
+                        if (firstNonNullableElement != null)
+                        {
+                            _entitySorters.TryGetValue(firstNonNullableElement.GetType(), out elementSorter);
+                        }
+                    }
+
+                    if (elementSorter != null)
+                    {
+                        actual = actual.OrderBy(elementSorter).ToList();
+                        expected = expected.OrderBy(elementSorter).ToList();
+                    }
+                }
+
+                if (clientProjections != null)
+                {
+                    foreach (var clientProjection in clientProjections)
+                    {
+                        var projectedActual = actual.Select(clientProjection).ToList();
+                        var projectedExpected = expected.Select(clientProjection).ToList();
+
+                        _includeResultAsserter.AssertResult(projectedExpected, projectedActual, expectedIncludes);
+                    }
+                }
+                else
+                {
+                    _includeResultAsserter.AssertResult(expected, actual, expectedIncludes);
+                }
+
+                Assert.Equal(entryCount, context.ChangeTracker.Entries().Count());
+
+                return actual;
+            }
+        }
+
+        #endregion
+
+        #region AssertSingleResult
+
+        public override async Task AssertSingleResult<TItem1>(
+            Func<IQueryable<TItem1>, object> actualSyncQuery,
+            Func<IQueryable<TItem1>, Task<object>> actualAsyncQuery,
+            Func<IQueryable<TItem1>, object> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+        {
+            using (var context = _contextCreator())
+            {
+                object actual;
+
+                if (isAsync)
+                {
+                    actual = await actualAsyncQuery(SetExtractor.Set<TItem1>(context));
+                }
+                else
+                {
+                    actual = actualSyncQuery(SetExtractor.Set<TItem1>(context));
+                }
+
+                var expected = expectedQuery(ExpectedData.Set<TItem1>());
+
+                if (asserter == null
+                    && expected != null)
+                {
+                    _entityAsserters.TryGetValue(expected.GetType(), out asserter);
+                }
+
+                if (asserter != null)
+                {
+                    asserter(expected, actual);
+                }
+                else
+                {
+                    Assert.Equal(expected, actual);
+                }
+
+                Assert.Equal(entryCount, context.ChangeTracker.Entries().Count());
+            }
+        }
+
+        public override async Task AssertSingleResult<TItem1, TResult>(
+            Func<IQueryable<TItem1>, TResult> actualSyncQuery,
+            Func<IQueryable<TItem1>, Task<TResult>> actualAsyncQuery,
+            Func<IQueryable<TItem1>, TResult> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+        {
+            using (var context = _contextCreator())
+            {
+                object actual;
+
+                if (isAsync)
+                {
+                    actual = await actualAsyncQuery(SetExtractor.Set<TItem1>(context));
+                }
+                else
+                {
+                    actual = actualSyncQuery(SetExtractor.Set<TItem1>(context));
+                }
+
+                var expected = expectedQuery(ExpectedData.Set<TItem1>());
+
+                if (asserter == null
+                    && expected != null)
+                {
+                    _entityAsserters.TryGetValue(expected.GetType(), out asserter);
+                }
+
+                if (asserter != null)
+                {
+                    asserter(expected, actual);
+                }
+                else
+                {
+                    Assert.Equal(expected, actual);
+                }
+
+                Assert.Equal(entryCount, context.ChangeTracker.Entries().Count());
             }
         }
 
@@ -1941,218 +2140,6 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
                 }
 
                 Assert.Equal(0, context.ChangeTracker.Entries().Count());
-            }
-        }
-
-        #endregion
-
-        //public override async Task AssertFirstOrDefault<TItem1>(
-        //    Func<IQueryable<TItem1>, IQueryable<dynamic>> actualQuery,
-        //    Func<IQueryable<TItem1>, IQueryable<dynamic>> expectedQuery,
-        //    Expression<Func<dynamic, bool>> actualFirstOrDefaultPredicate,
-        //    Expression<Func<dynamic, bool>> expectedFirstOrDefaultPredicate,
-        //    Action<object, object> asserter = null,
-        //    int entryCount = 0,
-        //    bool isAsync = false)
-        //{
-        //    using (var context = _contextCreator())
-        //    {
-        //        var actual = isAsync
-        //            ? actualFirstOrDefaultPredicate != null
-        //                ? await actualQuery(SetExtractor.Set<TItem1>(context)).FirstOrDefaultAsync(actualFirstOrDefaultPredicate)
-        //                : await actualQuery(SetExtractor.Set<TItem1>(context)).FirstOrDefaultAsync()
-        //            : actualFirstOrDefaultPredicate != null
-        //                ? actualQuery(SetExtractor.Set<TItem1>(context)).FirstOrDefault(actualFirstOrDefaultPredicate)
-        //                : actualQuery(SetExtractor.Set<TItem1>(context)).FirstOrDefault();
-
-        //        var expected = expectedFirstOrDefaultPredicate != null
-        //            ? expectedQuery(ExpectedData.Set<TItem1>()).FirstOrDefault(expectedFirstOrDefaultPredicate)
-        //            : expectedQuery(ExpectedData.Set<TItem1>()).FirstOrDefault();
-
-        //        if (asserter == null
-        //            && expected != null)
-        //        {
-        //            _entityAsserters.TryGetValue(expected.GetType(), out asserter);
-        //        }
-
-        //        if (asserter != null)
-        //        {
-        //            asserter(expected, actual);
-        //        }
-        //        else
-        //        {
-        //            Assert.Equal(expected, actual);
-        //        }
-
-        //        Assert.Equal(entryCount, context.ChangeTracker.Entries().Count());
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #region AssertIncludeQuery
-
-        public Task<List<object>> AssertIncludeQuery<TItem1>(
-            Func<IQueryable<TItem1>, IQueryable<object>> query,
-            List<IExpectedInclude> expectedIncludes,
-            Func<dynamic, object> elementSorter = null,
-            List<Func<dynamic, object>> clientProjections = null,
-            bool assertOrder = false,
-            int entryCount = 0,
-            bool isAsync = false)
-            where TItem1 : class
-            => AssertIncludeQuery(query, query, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, isAsync);
-
-        public override async Task<List<object>> AssertIncludeQuery<TItem1>(
-            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
-            List<IExpectedInclude> expectedIncludes,
-            Func<dynamic, object> elementSorter = null,
-            List<Func<dynamic, object>> clientProjections = null,
-            bool assertOrder = false,
-            int entryCount = 0,
-            bool isAsync = false)
-        {
-            using (var context = _contextCreator())
-            {
-                var actual = isAsync
-                    ? await actualQuery(
-                        SetExtractor.Set<TItem1>(context)).ToListAsync()
-                    : actualQuery(
-                        SetExtractor.Set<TItem1>(context)).ToList();
-
-                var expected = expectedQuery(ExpectedData.Set<TItem1>()).ToList();
-
-                if (!assertOrder)
-                {
-                    if (elementSorter == null)
-                    {
-                        var firstNonNullableElement = expected.FirstOrDefault(e => e != null);
-                        if (firstNonNullableElement != null)
-                        {
-                            _entitySorters.TryGetValue(firstNonNullableElement.GetType(), out elementSorter);
-                        }
-                    }
-
-                    if (elementSorter != null)
-                    {
-                        actual = actual.OrderBy(elementSorter).ToList();
-                        expected = expected.OrderBy(elementSorter).ToList();
-                    }
-                }
-
-                if (clientProjections != null)
-                {
-                    foreach (var clientProjection in clientProjections)
-                    {
-                        var projectedActual = actual.Select(clientProjection).ToList();
-                        var projectedExpected = expected.Select(clientProjection).ToList();
-
-                        _includeResultAsserter.AssertResult(projectedExpected, projectedActual, expectedIncludes);
-                    }
-                }
-                else
-                {
-                    _includeResultAsserter.AssertResult(expected, actual, expectedIncludes);
-                }
-
-                Assert.Equal(entryCount, context.ChangeTracker.Entries().Count());
-
-                return actual;
-            }
-        }
-
-        public Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> query,
-            List<IExpectedInclude> expectedIncludes,
-            Func<dynamic, object> elementSorter = null,
-            List<Func<dynamic, object>> clientProjections = null,
-            bool assertOrder = false,
-            int entryCount = 0,
-            bool isAsync = false)
-            where TItem1 : class
-            where TItem2 : class
-            => AssertIncludeQuery(query, query, expectedIncludes, elementSorter, clientProjections, assertOrder, entryCount, isAsync);
-
-        public override async Task<List<object>> AssertIncludeQuery<TItem1, TItem2>(
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
-            List<IExpectedInclude> expectedIncludes,
-            Func<dynamic, object> elementSorter = null,
-            List<Func<dynamic, object>> clientProjections = null,
-            bool assertOrder = false,
-            int entryCount = 0,
-            bool isAsync = false)
-        {
-            using (var context = _contextCreator())
-            {
-                var actual = isAsync
-                    ? await actualQuery(
-                        SetExtractor.Set<TItem1>(context),
-                        SetExtractor.Set<TItem2>(context)).ToListAsync()
-                    : actualQuery(
-                        SetExtractor.Set<TItem1>(context),
-                        SetExtractor.Set<TItem2>(context)).ToList();
-
-                var expected = expectedQuery(
-                    ExpectedData.Set<TItem1>(),
-                    ExpectedData.Set<TItem2>()).ToList();
-
-                if (!assertOrder)
-                {
-                    if (elementSorter == null)
-                    {
-                        var firstNonNullableElement = expected.FirstOrDefault(e => e != null);
-                        if (firstNonNullableElement != null)
-                        {
-                            _entitySorters.TryGetValue(firstNonNullableElement.GetType(), out elementSorter);
-                        }
-                    }
-
-                    if (elementSorter != null)
-                    {
-                        actual = actual.OrderBy(elementSorter).ToList();
-                        expected = expected.OrderBy(elementSorter).ToList();
-                    }
-                }
-
-                if (clientProjections != null)
-                {
-                    foreach (var clientProjection in clientProjections)
-                    {
-                        var projectedActual = actual.Select(clientProjection).ToList();
-                        var projectedExpected = expected.Select(clientProjection).ToList();
-
-                        _includeResultAsserter.AssertResult(projectedExpected, projectedActual, expectedIncludes);
-                    }
-                }
-                else
-                {
-                    _includeResultAsserter.AssertResult(expected, actual, expectedIncludes);
-                }
-
-                Assert.Equal(entryCount, context.ChangeTracker.Entries().Count());
-
-                return actual;
             }
         }
 

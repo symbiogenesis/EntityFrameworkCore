@@ -365,6 +365,21 @@ namespace Microsoft.EntityFrameworkCore.Query
         }
 
         [ConditionalFact]
+        public virtual async Task Where_nested_field_access_closure_via_query_cache_error_null_async()
+        {
+            var city = new City();
+
+            using (var context = CreateContext())
+            {
+                await Assert.ThrowsAsync<InvalidOperationException>(
+                    async () =>
+                        await context.Set<Customer>()
+                            .Where(c => c.City == city.Nested.InstanceFieldValue)
+                            .ToListAsync());
+            }
+        }
+
+        [ConditionalFact]
         public virtual void Where_nested_field_access_closure_via_query_cache_error_method_null()
         {
             var city = new City();
@@ -375,6 +390,21 @@ namespace Microsoft.EntityFrameworkCore.Query
                     () => context.Set<Customer>()
                         .Where(c => c.City == city.Throw().InstanceFieldValue)
                         .ToList());
+            }
+        }
+
+        [ConditionalFact]
+        public virtual async Task Where_nested_field_access_closure_via_query_cache_error_method_null_async()
+        {
+            var city = new City();
+
+            using (var context = CreateContext())
+            {
+                await Assert.ThrowsAsync<InvalidOperationException>(
+                    async () =>
+                        await context.Set<Customer>()
+                            .Where(c => c.City == city.Throw().InstanceFieldValue)
+                            .ToListAsync());
             }
         }
 
