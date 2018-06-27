@@ -587,9 +587,9 @@ FROM ""Customers"" AS ""c""
 WHERE trim(""c"".""ContactTitle"", 'Or') = 'wne'");
         }
 
-        public override void Sum_with_coalesce()
+        public override async Task Sum_with_coalesce(bool isAsync)
         {
-            base.Sum_with_coalesce();
+            await base.Sum_with_coalesce(isAsync);
 
             AssertSql(
                 @"SELECT COALESCE(""p"".""UnitPrice"", '0.0')

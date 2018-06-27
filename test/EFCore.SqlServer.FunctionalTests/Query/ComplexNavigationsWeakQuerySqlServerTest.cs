@@ -116,9 +116,9 @@ FROM (
 ) AS [t1]");
         }
 
-        public override void Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty()
+        public override async Task Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty(bool isAsync)
         {
-            base.Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty();
+            await base.Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty(isAsync);
 
             AssertSql(
                 @"SELECT SUM(CASE

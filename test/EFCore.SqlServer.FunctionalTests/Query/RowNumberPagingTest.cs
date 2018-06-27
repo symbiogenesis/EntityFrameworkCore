@@ -459,9 +459,9 @@ FROM (
 ORDER BY [t0].[ContactTitle]");
         }
 
-        public override void Skip_Take_Any()
+        public override async Task Skip_Take_Any(bool isAsync)
         {
-            base.Skip_Take_Any();
+            await base.Skip_Take_Any(isAsync);
 
             AssertSql(
                 @"@__p_0='5'
@@ -479,9 +479,9 @@ SELECT CASE
 END");
         }
 
-        public override void Skip_Take_All()
+        public override async Task Skip_Take_All(bool isAsync)
         {
-            base.Skip_Take_All();
+            await base.Skip_Take_All(isAsync);
 
             AssertSql(
                 @"@__p_0='4'
@@ -503,9 +503,9 @@ SELECT CASE
 END");
         }
 
-        public override void Take_All()
+        public override async Task Take_All(bool isAsync)
         {
-            base.Take_All();
+            await base.Take_All(isAsync);
 
             AssertSql(
                 @"@__p_0='4'
@@ -523,9 +523,9 @@ SELECT CASE
 END");
         }
 
-        public override void Skip_Take_Any_with_predicate()
+        public override async Task Skip_Take_Any_with_predicate(bool isAsync)
         {
-            base.Skip_Take_Any_with_predicate();
+            await base.Skip_Take_Any_with_predicate(isAsync);
 
             AssertSql(
                 @"@__p_0='5'
@@ -547,9 +547,9 @@ SELECT CASE
 END");
         }
 
-        public override void Take_Any_with_predicate()
+        public override async Task Take_Any_with_predicate(bool isAsync)
         {
-            base.Take_Any_with_predicate();
+            await base.Take_Any_with_predicate(isAsync);
 
             AssertSql(
                 @"@__p_0='5'

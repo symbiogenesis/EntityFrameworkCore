@@ -1564,20 +1564,23 @@ namespace Microsoft.EntityFrameworkCore.Query
                 elementSorter: e => e.Id1 + " " + e.Id2);
         }
 
-        [ConditionalFact]
-        public virtual void Optional_Navigation_Null_Coalesce_To_Clr_Type()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Optional_Navigation_Null_Coalesce_To_Clr_Type(bool isAsync)
         {
-            AssertSingleResult<Weapon>(
+            return AssertFirst<Weapon>(
+                isAsync,
                 ws => ws.OrderBy(w => w.Id).Select(
                     w => new Weapon
                     {
                         IsAutomatic = (bool?)w.SynergyWith.IsAutomatic ?? false
-                    }).First(),
+                    }),
                 ws => ws.OrderBy(w => w.Id).Select(
                     w => new Weapon
                     {
                         IsAutomatic = MaybeScalar<bool>(w.SynergyWith, () => w.SynergyWith.IsAutomatic) ?? false
-                    }).First());
+                    }));
         }
 
         [Theory]
@@ -2571,11 +2574,15 @@ namespace Microsoft.EntityFrameworkCore.Query
                 elementAsserter: GroupingAsserter<int, CogTag>(t => t.Id, (e, a) => Assert.Equal(e.Id, a.Id)));
         }
 
-        [ConditionalFact]
-        public virtual void Optional_navigation_type_compensation_works_with_all()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Optional_navigation_type_compensation_works_with_all(bool isAsync)
         {
-            AssertSingleResult<CogTag>(
-                ts => ts.Where(t => t.Note != "K.I.A.").All(t => t.Gear.HasSoulPatch));
+            return AssertAll<CogTag, CogTag>(
+                isAsync,
+                ts => ts.Where(t => t.Note != "K.I.A."),
+                predicate: t => t.Gear.HasSoulPatch);
         }
 
         [Theory]
@@ -3021,29 +3028,31 @@ namespace Microsoft.EntityFrameworkCore.Query
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public virtual void Sum_with_optional_navigation_is_translated_to_sql(bool isAsync)
+        public virtual Task Sum_with_optional_navigation_is_translated_to_sql(bool isAsync)
         {
-            AssertSingleResult<Gear>(
+            return AssertSum<Gear>(
+                isAsync,
                 gs => (from g in gs
                        where g.Tag.Note != "Foo"
-                       select g.SquadId).Sum(),
+                       select g.SquadId),
                 gs => (from g in gs
                        where Maybe(g.Tag, () => g.Tag.Note) != "Foo"
-                       select g.SquadId).Sum());
+                       select g.SquadId));
         }
 
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public virtual void Count_with_optional_navigation_is_translated_to_sql(bool isAsync)
+        public virtual Task Count_with_optional_navigation_is_translated_to_sql(bool isAsync)
         {
-            AssertSingleResult<Gear>(
+            return AssertCount<Gear>(
+                isAsync,
                 gs => (from g in gs
                        where g.Tag.Note != "Foo"
-                       select g.HasSoulPatch).Count(),
+                       select g.HasSoulPatch),
                 gs => (from g in gs
                        where Maybe(g.Tag, () => g.Tag.Note) != "Foo"
-                       select g.HasSoulPatch).Count());
+                       select g.HasSoulPatch));
         }
 
         [Theory]
@@ -3072,9 +3081,10 @@ namespace Microsoft.EntityFrameworkCore.Query
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public virtual void Count_with_unflattened_groupjoin_is_evaluated_on_client(bool isAsync)
+        public virtual Task Count_with_unflattened_groupjoin_is_evaluated_on_client(bool isAsync)
         {
-            AssertSingleResult<Gear, CogTag>(
+            return AssertCount<Gear, CogTag>(
+                isAsync,
                 (gs, ts) => gs
                     .GroupJoin(
                         ts,
@@ -3088,22 +3098,22 @@ namespace Microsoft.EntityFrameworkCore.Query
                             k1 = t.GearNickName,
                             k2 = t.GearSquadId
                         },
-                        (g, t) => g)
-                    .Count());
+                        (g, t) => g));
         }
 
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public virtual void FirstOrDefault_with_manually_created_groupjoin_is_translated_to_sql(bool isAsync)
+        public virtual Task FirstOrDefault_with_manually_created_groupjoin_is_translated_to_sql(bool isAsync)
         {
-            AssertSingleResult<Squad, Gear>(
+            return AssertFirstOrDefault<Squad, Gear>(
+                isAsync,
                 (ss, gs) =>
-                    (from s in ss
-                     join g in gs on s.Id equals g.SquadId into grouping
-                     from g in grouping.DefaultIfEmpty()
-                     where s.Name == "Kilo"
-                     select s).FirstOrDefault());
+                    from s in ss
+                    join g in gs on s.Id equals g.SquadId into grouping
+                    from g in grouping.DefaultIfEmpty()
+                    where s.Name == "Kilo"
+                    select s);
         }
 
         [Theory]
@@ -3121,11 +3131,13 @@ namespace Microsoft.EntityFrameworkCore.Query
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public virtual void All_with_optional_navigation_is_translated_to_sql(bool isAsync)
+        public virtual Task All_with_optional_navigation_is_translated_to_sql(bool isAsync)
         {
-            AssertSingleResult<Gear>(
-                gs => (from g in gs
-                       select g).All(g => g.Tag.Note != "Foo"));
+            return AssertAll<Gear, Gear>(
+                isAsync,
+                gs => from g in gs
+                      select g,
+                predicate: g => g.Tag.Note != "Foo");
         }
 
         [Theory]

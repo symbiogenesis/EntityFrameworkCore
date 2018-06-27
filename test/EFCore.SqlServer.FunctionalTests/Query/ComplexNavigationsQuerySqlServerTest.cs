@@ -1007,9 +1007,9 @@ LEFT JOIN [LevelTwo] AS [l2] ON [l1].[Id] = [l2].[Level1_Optional_Id]
 ORDER BY [l2].[Name], [l1].[Id]");
         }
 
-        public override void Result_operator_nav_prop_reference_optional_Sum()
+        public override async Task Result_operator_nav_prop_reference_optional_Sum(bool isAsync)
         {
-            base.Result_operator_nav_prop_reference_optional_Sum();
+            await base.Result_operator_nav_prop_reference_optional_Sum(isAsync);
 
             AssertSql(
                 @"SELECT SUM([e.OneToOne_Optional_FK].[Level1_Required_Id])
@@ -1017,9 +1017,9 @@ FROM [LevelOne] AS [e]
 LEFT JOIN [LevelTwo] AS [e.OneToOne_Optional_FK] ON [e].[Id] = [e.OneToOne_Optional_FK].[Level1_Optional_Id]");
         }
 
-        public override void Result_operator_nav_prop_reference_optional_Min()
+        public override async Task Result_operator_nav_prop_reference_optional_Min(bool isAsync)
         {
-            base.Result_operator_nav_prop_reference_optional_Min();
+            await base.Result_operator_nav_prop_reference_optional_Min(isAsync);
 
             AssertSql(
                 @"SELECT MIN([e.OneToOne_Optional_FK].[Level1_Required_Id])
@@ -1027,9 +1027,9 @@ FROM [LevelOne] AS [e]
 LEFT JOIN [LevelTwo] AS [e.OneToOne_Optional_FK] ON [e].[Id] = [e.OneToOne_Optional_FK].[Level1_Optional_Id]");
         }
 
-        public override void Result_operator_nav_prop_reference_optional_Max()
+        public override async Task Result_operator_nav_prop_reference_optional_Max(bool isAsync)
         {
-            base.Result_operator_nav_prop_reference_optional_Max();
+            await base.Result_operator_nav_prop_reference_optional_Max(isAsync);
 
             AssertSql(
                 @"SELECT MAX([e.OneToOne_Optional_FK].[Level1_Required_Id])
@@ -1037,9 +1037,9 @@ FROM [LevelOne] AS [e]
 LEFT JOIN [LevelTwo] AS [e.OneToOne_Optional_FK] ON [e].[Id] = [e.OneToOne_Optional_FK].[Level1_Optional_Id]");
         }
 
-        public override void Result_operator_nav_prop_reference_optional_Average()
+        public override async Task Result_operator_nav_prop_reference_optional_Average(bool isAsync)
         {
-            base.Result_operator_nav_prop_reference_optional_Average();
+            await base.Result_operator_nav_prop_reference_optional_Average(isAsync);
 
             AssertSql(
                 @"SELECT AVG(CAST([e.OneToOne_Optional_FK].[Level1_Required_Id] AS float))
@@ -1047,9 +1047,9 @@ FROM [LevelOne] AS [e]
 LEFT JOIN [LevelTwo] AS [e.OneToOne_Optional_FK] ON [e].[Id] = [e.OneToOne_Optional_FK].[Level1_Optional_Id]");
         }
 
-        public override void Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty()
+        public override async Task Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty(bool isAsync)
         {
-            base.Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty();
+            await base.Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty(isAsync);
 
             AssertSql(
                 @"SELECT SUM(CASE

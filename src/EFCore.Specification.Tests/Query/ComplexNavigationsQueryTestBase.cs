@@ -1796,47 +1796,71 @@ namespace Microsoft.EntityFrameworkCore.Query
                 assertOrder: true);
         }
 
-        [ConditionalFact]
-        public virtual void Result_operator_nav_prop_reference_optional_Sum()
+        [Theory]
+        [InlineData(false)]
+        //[InlineData(true)] issue #12314
+        public virtual Task Result_operator_nav_prop_reference_optional_Sum(bool isAsync)
         {
-            AssertSingleResult<Level1>(
-                l1s => l1s.Sum(e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id),
-                l1s => l1s.Sum(e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id)));
+            return AssertSumWithSelector<Level1,Level1>(
+                isAsync,
+                l1s => l1s,
+                l1s => l1s,
+                actualSelector: e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id,
+                expectedSelector: e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id));
         }
 
-        [ConditionalFact]
-        public virtual void Result_operator_nav_prop_reference_optional_Min()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Result_operator_nav_prop_reference_optional_Min(bool isAsync)
         {
-            AssertSingleResult<Level1>(
-                l1s => l1s.Min(e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id),
-                l1s => l1s.Min(e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id)));
+            return AssertMinWithSelector<Level1, Level1>(
+                isAsync,
+                l1s => l1s,
+                l1s => l1s,
+                actualSelector: e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id,
+                expectedSelector: e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id));
         }
 
-        [ConditionalFact]
-        public virtual void Result_operator_nav_prop_reference_optional_Max()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Result_operator_nav_prop_reference_optional_Max(bool isAsync)
         {
-            AssertSingleResult<Level1>(
-                l1s => l1s.Max(e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id),
-                l1s => l1s.Max(e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id)));
+            return AssertMaxWithSelector<Level1, Level1>(
+            isAsync,
+            l1s => l1s,
+            l1s => l1s,
+            actualSelector: e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id,
+            expectedSelector: e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id));
         }
 
-        [ConditionalFact]
-        public virtual void Result_operator_nav_prop_reference_optional_Average()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Result_operator_nav_prop_reference_optional_Average(bool isAsync)
         {
-            AssertSingleResult<Level1>(
-                l1s => l1s.Average(e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id),
-                l1s => l1s.Average(e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id)));
+            return AssertAverageWithSelector<Level1, Level1>(
+                isAsync,
+                l1s => l1s,
+                l1s => l1s,
+                actualSelector: e => (int?)e.OneToOne_Optional_FK.Level1_Required_Id,
+                expectedSelector: e => MaybeScalar<int>(e.OneToOne_Optional_FK, () => e.OneToOne_Optional_FK.Level1_Required_Id));
         }
 
-        [ConditionalFact]
-        public virtual void Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public virtual Task Result_operator_nav_prop_reference_optional_via_DefaultIfEmpty(bool isAsync)
         {
-            AssertSingleResult<Level1, Level2>(
+            return AssertSumWithSelector<Level1, Level2, Level2>(
+                isAsync,
                 (l1s, l2s) =>
-                    (from l1 in l1s
-                     join l2 in l2s on l1.Id equals l2.Level1_Optional_Id into groupJoin
-                     from l2 in groupJoin.DefaultIfEmpty()
-                     select l2).Sum(e => e == null ? 0 : e.Level1_Required_Id));
+                    from l1 in l1s
+                    join l2 in l2s on l1.Id equals l2.Level1_Optional_Id into groupJoin
+                    from l2 in groupJoin.DefaultIfEmpty()
+                    select l2,
+                selector: e => e == null ? 0 : e.Level1_Required_Id);
         }
 
         [Theory]

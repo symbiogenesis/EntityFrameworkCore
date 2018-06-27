@@ -1523,9 +1523,9 @@ LEFT JOIN (
 WHERE ([t].[Nickname] = [t0].[Nickname]) OR ([t].[Nickname] IS NULL AND [t0].[Nickname] IS NULL)");
         }
 
-        public override void Optional_Navigation_Null_Coalesce_To_Clr_Type()
+        public override async Task Optional_Navigation_Null_Coalesce_To_Clr_Type(bool isAsync)
         {
-            base.Optional_Navigation_Null_Coalesce_To_Clr_Type();
+            await base.Optional_Navigation_Null_Coalesce_To_Clr_Type(isAsync);
 
             AssertSql(
                 @"SELECT TOP(1) CAST(COALESCE([w.SynergyWith].[IsAutomatic], 0) AS bit) AS [IsAutomatic]
@@ -2717,9 +2717,9 @@ WHERE ([t].[Note] <> N'K.I.A.') OR [t].[Note] IS NULL
 ORDER BY [t0].[SquadId]");
         }
 
-        public override void Optional_navigation_type_compensation_works_with_all()
+        public override async Task Optional_navigation_type_compensation_works_with_all(bool isAsync)
         {
-            base.Optional_navigation_type_compensation_works_with_all();
+            await base.Optional_navigation_type_compensation_works_with_all(isAsync);
 
             AssertSql(
                 @"SELECT CASE
@@ -3248,9 +3248,9 @@ LEFT JOIN [Tags] AS [g.Tag] ON ([g].[Nickname] = [g.Tag].[GearNickName]) AND ([g
 WHERE [g].[Discriminator] IN (N'Officer', N'Gear') AND (([g.Tag].[Note] <> N'Foo') OR [g.Tag].[Note] IS NULL)");
         }
 
-        public override void Sum_with_optional_navigation_is_translated_to_sql(bool isAsync)
+        public override async Task Sum_with_optional_navigation_is_translated_to_sql(bool isAsync)
         {
-            base.Sum_with_optional_navigation_is_translated_to_sql(isAsync);
+            await base.Sum_with_optional_navigation_is_translated_to_sql(isAsync);
 
             AssertSql(
                 @"SELECT SUM([g].[SquadId])
@@ -3259,9 +3259,9 @@ LEFT JOIN [Tags] AS [g.Tag] ON ([g].[Nickname] = [g.Tag].[GearNickName]) AND ([g
 WHERE [g].[Discriminator] IN (N'Officer', N'Gear') AND (([g.Tag].[Note] <> N'Foo') OR [g.Tag].[Note] IS NULL)");
         }
 
-        public override void Count_with_optional_navigation_is_translated_to_sql(bool isAsync)
+        public override async Task Count_with_optional_navigation_is_translated_to_sql(bool isAsync)
         {
-            base.Count_with_optional_navigation_is_translated_to_sql(isAsync);
+            await base.Count_with_optional_navigation_is_translated_to_sql(isAsync);
 
             AssertSql(
                 @"SELECT COUNT(*)
@@ -3270,9 +3270,9 @@ LEFT JOIN [Tags] AS [g.Tag] ON ([g].[Nickname] = [g.Tag].[GearNickName]) AND ([g
 WHERE [g].[Discriminator] IN (N'Officer', N'Gear') AND (([g.Tag].[Note] <> N'Foo') OR [g.Tag].[Note] IS NULL)");
         }
 
-        public override void Count_with_unflattened_groupjoin_is_evaluated_on_client(bool isAsync)
+        public override async Task Count_with_unflattened_groupjoin_is_evaluated_on_client(bool isAsync)
         {
-            base.Count_with_unflattened_groupjoin_is_evaluated_on_client(isAsync);
+            await base.Count_with_unflattened_groupjoin_is_evaluated_on_client(isAsync);
 
             AssertSql(
                 @"SELECT [g].[Nickname], [g].[SquadId], [g].[AssignedCityName], [g].[CityOrBirthName], [g].[Discriminator], [g].[FullName], [g].[HasSoulPatch], [g].[LeaderNickname], [g].[LeaderSquadId], [g].[Rank], [t].[Id], [t].[GearNickName], [t].[GearSquadId], [t].[Note]
@@ -3294,9 +3294,9 @@ WHERE [g].[Discriminator] IN (N'Officer', N'Gear')
 ORDER BY [g].[Nickname], [g].[SquadId]");
         }
 
-        public override void FirstOrDefault_with_manually_created_groupjoin_is_translated_to_sql(bool isAsync)
+        public override async Task FirstOrDefault_with_manually_created_groupjoin_is_translated_to_sql(bool isAsync)
         {
-            base.FirstOrDefault_with_manually_created_groupjoin_is_translated_to_sql(isAsync);
+            await base.FirstOrDefault_with_manually_created_groupjoin_is_translated_to_sql(isAsync);
 
             AssertSql(
                 @"SELECT TOP(1) [s].[Id], [s].[InternalNumber], [s].[Name]
@@ -3323,9 +3323,9 @@ WHERE NOT EXISTS (
     WHERE ([m].[Discriminator] IN (N'Officer', N'Gear') AND ([m.Tag].[Note] = N'Dom''s Tag')) AND ([s].[Id] = [m].[SquadId]))");
         }
 
-        public override void All_with_optional_navigation_is_translated_to_sql(bool isAsync)
+        public override async Task All_with_optional_navigation_is_translated_to_sql(bool isAsync)
         {
-            base.All_with_optional_navigation_is_translated_to_sql(isAsync);
+            await base.All_with_optional_navigation_is_translated_to_sql(isAsync);
 
             AssertSql(
                 @"SELECT CASE

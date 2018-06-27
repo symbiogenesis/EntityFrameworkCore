@@ -100,6 +100,55 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
 
         #endregion
 
+        #region AssertAny
+
+        public abstract Task AssertAny<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertAny<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class;
+
+        public abstract Task AssertAny<TItem1, TItem2, TItem3>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> expectedQuery,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class
+            where TItem3 : class;
+
+        #endregion
+
+        #region AssertAnyWithPredicate
+
+        public abstract Task AssertAnyWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
+
+        #region AssertAll
+
+        public abstract Task AssertAll<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
+
         #region AssertFirst
 
         public abstract Task AssertFirst<TItem1>(
@@ -110,11 +159,11 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
             bool isAsync = false)
             where TItem1 : class;
 
-        public abstract Task AssertFirst<TItem1, TResult>(
-            Func<IQueryable<TItem1>, IQueryable<TResult>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<TResult>> expectedQuery,
-            Expression<Func<TResult, bool>> actualFirstPredicate,
-            Expression<Func<TResult, bool>> expectedFirstPredicate,
+        public abstract Task AssertFirstWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
             Action<object, object> asserter = null,
             int entryCount = 0,
             bool isAsync = false)
@@ -122,12 +171,171 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
 
         #endregion
 
+        #region AssertFirstOrDefault
+
+        public abstract Task AssertFirstOrDefault<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertFirstOrDefault<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class;
+
+        public abstract Task AssertFirstOrDefault<TItem1, TItem2, TItem3>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TItem3>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class
+            where TItem3 : class;
+
+        #endregion
+
+        #region AssertFirstOrDefaultWithPredicate
+
+        public abstract Task AssertFirstOrDefaultWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
+
+        #region AssertSingle
+
+        public abstract Task AssertSingle<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertSingle<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class;
+
+        #endregion
+
+        #region AssertSingleWithPredicate
+
+        public abstract Task AssertSingleWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
+
+        #region AssertSingleOrDefault
+
+        public abstract Task AssertSingleOrDefault<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertSingleOrDefaultWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
+
+        #region AssertLast
+
+        public abstract Task AssertLast<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertLastWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
+
+        #region AssertLastOrDefault
+
+        public abstract Task AssertLastOrDefault<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertLastOrDefaultWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        #endregion
 
         #region AssertCount
 
         public abstract Task AssertCount<TItem1>(
             Func<IQueryable<TItem1>, IQueryable<object>> actualQuery,
             Func<IQueryable<TItem1>, IQueryable<object>> expectedQuery,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertCount<TItem1, TResult>(
+            Func<IQueryable<TItem1>, IQueryable<TResult>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TResult>> expectedQuery,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertCountWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
             bool isAsync = false)
             where TItem1 : class;
 
@@ -148,6 +356,27 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
             bool isAsync = false)
             where TItem1 : class;
 
+        public abstract Task AssertLongCount<TItem1, TResult>(
+            Func<IQueryable<TItem1>, IQueryable<TResult>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TResult>> expectedQuery,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertLongCountWithPredicate<TItem1, TPredicate>(
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TPredicate>> expectedQuery,
+            Expression<Func<TPredicate, bool>> actualPredicate,
+            Expression<Func<TPredicate, bool>> expectedPredicate,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertLongCount<TItem1, TItem2>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<object>> expectedQuery,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class;
+
         #endregion
 
         #region AssertMin
@@ -163,6 +392,16 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
         public abstract Task AssertMin<TItem1, TResult>(
             Func<IQueryable<TItem1>, IQueryable<TResult>> actualQuery,
             Func<IQueryable<TItem1>, IQueryable<TResult>> expectedQuery,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertMinWithSelector<TItem1, TSelector, TResult>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, TResult>> actualSelector,
+            Expression<Func<TSelector, TResult>> expectedSelector,
             Action<object, object> asserter = null,
             int entryCount = 0,
             bool isAsync = false)
@@ -188,6 +427,16 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
             bool isAsync = false)
             where TItem1 : class;
 
+        public abstract Task AssertMaxWithSelector<TItem1, TSelector, TResult>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, TResult>> actualSelector,
+            Expression<Func<TSelector, TResult>> expectedSelector,
+            Action<object, object> asserter = null,
+            int entryCount = 0,
+            bool isAsync = false)
+            where TItem1 : class;
+
         #endregion
 
         #region AssertSum
@@ -195,22 +444,66 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
         public abstract Task AssertSum<TItem1>(
             Func<IQueryable<TItem1>, IQueryable<int>> actualQuery,
             Func<IQueryable<TItem1>, IQueryable<int>> expectedQuery,
+            Action<object, object> asserter = null,
             bool isAsync = false)
             where TItem1 : class;
 
         public abstract Task AssertSum<TItem1>(
             Func<IQueryable<TItem1>, IQueryable<int?>> actualQuery,
             Func<IQueryable<TItem1>, IQueryable<int?>> expectedQuery,
+            Action<object, object> asserter = null,
             bool isAsync = false)
             where TItem1 : class;
 
-        public abstract Task AssertSumWithSelector<TItem1, TResult>(
-            Func<IQueryable<TItem1>, IQueryable<TResult>> actualQuery,
-            Func<IQueryable<TItem1>, IQueryable<TResult>> expectedQuery,
-            Expression<Func<TResult, int>> actualSelector,
-            Expression<Func<TResult, int>> expectedSelector,
+        #endregion
+
+        #region AssertSumWithSelector
+
+        public abstract Task AssertSumWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, int>> actualSelector,
+            Expression<Func<TSelector, int>> expectedSelector,
+            Action<object, object> asserter = null,
             bool isAsync = false)
             where TItem1 : class;
+
+        public abstract Task AssertSumWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, int?>> actualSelector,
+            Expression<Func<TSelector, int?>> expectedSelector,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertSumWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, decimal>> actualSelector,
+            Expression<Func<TSelector, decimal>> expectedSelector,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertSumWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, float>> actualSelector,
+            Expression<Func<TSelector, float>> expectedSelector,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertSumWithSelector<TItem1, TItem2,TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TItem2>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, int>> actualSelector,
+            Expression<Func<TSelector, int>> expectedSelector,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class
+            where TItem2 : class;
 
         #endregion
 
@@ -219,6 +512,49 @@ namespace Microsoft.EntityFrameworkCore.TestUtilities
         public abstract Task AssertAverage<TItem1>(
             Func<IQueryable<TItem1>, IQueryable<int>> actualQuery,
             Func<IQueryable<TItem1>, IQueryable<int>> expectedQuery,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertAverage<TItem1>(
+            Func<IQueryable<TItem1>, IQueryable<long>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<long>> expectedQuery,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertAverageWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, int>> actualSelector,
+            Expression<Func<TSelector, int>> expectedSelector,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertAverageWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, int?>> actualSelector,
+            Expression<Func<TSelector, int?>> expectedSelector,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertAverageWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, decimal>> actualSelector,
+            Expression<Func<TSelector, decimal>> expectedSelector,
+            Action<object, object> asserter = null,
+            bool isAsync = false)
+            where TItem1 : class;
+
+        public abstract Task AssertAverageWithSelector<TItem1, TSelector>(
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> actualQuery,
+            Func<IQueryable<TItem1>, IQueryable<TSelector>> expectedQuery,
+            Expression<Func<TSelector, float>> actualSelector,
+            Expression<Func<TSelector, float>> expectedSelector,
             Action<object, object> asserter = null,
             bool isAsync = false)
             where TItem1 : class;
