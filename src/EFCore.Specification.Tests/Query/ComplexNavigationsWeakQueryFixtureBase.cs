@@ -16,9 +16,6 @@ namespace Microsoft.EntityFrameworkCore.Query
 
         protected ComplexNavigationsWeakQueryFixtureBase()
         {
-            QueryAsserter.SetExtractor = new ComplexNavigationsOwnedSetExtractor();
-            QueryAsserter.ExpectedData = new ComplexNavigationsOwnedData();
-
             QueryAsserter2.SetExtractor = new ComplexNavigationsOwnedSetExtractor();
             QueryAsserter2.ExpectedData = new ComplexNavigationsOwnedData();
         }

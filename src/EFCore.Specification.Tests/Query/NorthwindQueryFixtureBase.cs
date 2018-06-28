@@ -28,11 +28,11 @@ namespace Microsoft.EntityFrameworkCore.Query
 
             var entityAsserters = new Dictionary<Type, Action<dynamic, dynamic>>();
 
-            QueryAsserter = new QueryAsserter<NorthwindContext>(
-                CreateContext,
-                new NorthwindData(),
-                entitySorters,
-                entityAsserters);
+            //QueryAsserter = new QueryAsserter<NorthwindContext>(
+            //    CreateContext,
+            //    new NorthwindData(),
+            //    entitySorters,
+            //    entityAsserters);
 
             QueryAsserter2 = new QueryAsserter2<NorthwindContext>(
                 CreateContext,
@@ -45,7 +45,7 @@ namespace Microsoft.EntityFrameworkCore.Query
 
         protected override bool UsePooling => typeof(TModelCustomizer) == typeof(NoopModelCustomizer);
 
-        public QueryAsserterBase QueryAsserter { get; set; }
+        //public QueryAsserterBase QueryAsserter { get; set; }
         public QueryAsserterBase2 QueryAsserter2 { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder, DbContext context)

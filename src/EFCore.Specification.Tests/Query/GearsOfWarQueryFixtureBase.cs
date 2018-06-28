@@ -217,11 +217,11 @@ namespace Microsoft.EntityFrameworkCore.Query
                 }
             };
 
-            QueryAsserter = new QueryAsserter<GearsOfWarContext>(
-                CreateContext,
-                new GearsOfWarData(),
-                entitySorters,
-                entityAsserters);
+            //QueryAsserter = new QueryAsserter<GearsOfWarContext>(
+            //    CreateContext,
+            //    new GearsOfWarData(),
+            //    entitySorters,
+            //    entityAsserters);
 
             QueryAsserter2 = new QueryAsserter2<GearsOfWarContext>(
                 CreateContext,
@@ -230,7 +230,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                 entityAsserters);
         }
 
-        public QueryAsserterBase QueryAsserter { get; set; }
+        //public QueryAsserterBase QueryAsserter { get; set; }
 
         public QueryAsserterBase2 QueryAsserter2 { get; set; }
 

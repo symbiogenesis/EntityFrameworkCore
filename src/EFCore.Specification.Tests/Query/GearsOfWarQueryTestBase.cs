@@ -5426,7 +5426,7 @@ namespace Microsoft.EntityFrameworkCore.Query
             using (var ctx = CreateContext())
             {
                 var actual = ctx.Gears.OrderBy(g => g.Nickname).Select(g => g.Weapons).FirstOrDefault();
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Select(g => g.Weapons).FirstOrDefault();
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Select(g => g.Weapons).FirstOrDefault();
 
                 Assert.Equal(expected.Count, actual.Count);
 
@@ -5456,7 +5456,7 @@ namespace Microsoft.EntityFrameworkCore.Query
             using (var ctx = CreateContext())
             {
                 var actual = ctx.Gears.OrderByDescending(g => g.FullName).Select(g => g.Weapons).Last();
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Gear>().OrderByDescending(g => g.FullName).Select(g => g.Weapons).Last();
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Gear>().OrderByDescending(g => g.FullName).Select(g => g.Weapons).Last();
 
                 Assert.Equal(expected.Count, actual.Count);
 
@@ -5476,7 +5476,7 @@ namespace Microsoft.EntityFrameworkCore.Query
             using (var ctx = CreateContext())
             {
                 var actual = ctx.Gears.OrderBy(g => g.FullName).Select(g => g.Weapons.OrderBy(w => w.Name).ToList()).Last();
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Gear>().OrderBy(g => g.FullName).Select(g => g.Weapons.OrderBy(w => w.Name).ToList()).Last();
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Gear>().OrderBy(g => g.FullName).Select(g => g.Weapons.OrderBy(w => w.Name).ToList()).Last();
 
                 Assert.Equal(expected.Count, actual.Count);
 
@@ -5501,7 +5501,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                         g.Rank,
                         g
                     }).GroupBy(g => g.Rank).ToList().OrderBy(g => g.Key).ToList();
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Gear>().OrderByDescending(g => g.HasSoulPatch).Include(g => g.Weapons).Select(
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Gear>().OrderByDescending(g => g.HasSoulPatch).Include(g => g.Weapons).Select(
                     g => new
                     {
                         g.Rank,
@@ -5546,7 +5546,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                         g.Rank,
                         g.HasSoulPatch
                     }).ToList().OrderBy(g => g.Key.Rank).ThenBy(g => g.Key.HasSoulPatch).ToList();
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Include(g => g.Weapons).GroupBy(
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Include(g => g.Weapons).GroupBy(
                     g => new
                     {
                         g.Rank,
@@ -5587,7 +5587,7 @@ namespace Microsoft.EntityFrameworkCore.Query
             using (var ctx = CreateContext())
             {
                 var actual = ctx.Gears.Include(g => g.Weapons).OrderBy(g => g.Nickname).Take(3).GroupBy(g => g.HasSoulPatch).ToList();
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Take(3).GroupBy(g => g.HasSoulPatch).ToList();
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Take(3).GroupBy(g => g.HasSoulPatch).ToList();
 
                 Assert.Equal(expected.Count, actual.Count);
                 for (var i = 0; i < expected.Count; i++)
@@ -5604,7 +5604,7 @@ namespace Microsoft.EntityFrameworkCore.Query
             using (var ctx = CreateContext())
             {
                 var actual = ctx.Gears.Include(g => g.Weapons).OrderBy(g => g.Nickname).Distinct().GroupBy(g => g.HasSoulPatch).ToList();
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Distinct().GroupBy(g => g.HasSoulPatch).ToList();
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Gear>().OrderBy(g => g.Nickname).Distinct().GroupBy(g => g.HasSoulPatch).ToList();
 
                 Assert.Equal(expected.Count, actual.Count);
                 for (var i = 0; i < expected.Count; i++)

@@ -1406,7 +1406,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                     .Select(o => new OrderCountDTO())
                     .Distinct().ToList().OrderBy(e => e.Id).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Order>()
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Order>()
                     .Where(o => o.OrderID < 10300)
                     .Select(o => new OrderCountDTO())
                     .Distinct().ToList().OrderBy(e => e.Id).ToList();
@@ -1430,7 +1430,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                     .Select(o => new OrderCountDTO(o.CustomerID))
                     .Distinct().ToList().OrderBy(e => e.Id).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Order>()
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Order>()
                     .Where(o => o.OrderID < 10300)
                     .Select(o => new OrderCountDTO(o.CustomerID))
                     .Distinct().ToList().OrderBy(e => e.Id).ToList();
@@ -1459,7 +1459,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                         })
                     .Distinct().ToList().OrderBy(e => e.Count).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Order>()
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Order>()
                     .Where(o => o.OrderID < 10300)
                     .Select(
                         o => new OrderCountDTO
@@ -1493,7 +1493,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                         })
                     .ToList().OrderBy(e => e.Id).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Customer>()
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Customer>()
                     .Where(c => c.CustomerID.StartsWith("A"))
                     .Select(
                         c => new OrderCountDTO
@@ -1552,8 +1552,8 @@ namespace Microsoft.EntityFrameworkCore.Query
                                   o
                               }).ToList().OrderBy(e => e.c.CustomerID + " " + e.o.Count).ToList();
 
-                var expected = (from c in Fixture.QueryAsserter.ExpectedData.Set<Customer>().Where(c => c.CustomerID.StartsWith("A"))
-                                from o in Fixture.QueryAsserter.ExpectedData.Set<Order>().Where(o => o.OrderID < 10300)
+                var expected = (from c in Fixture.QueryAsserter2.ExpectedData.Set<Customer>().Where(c => c.CustomerID.StartsWith("A"))
+                                from o in Fixture.QueryAsserter2.ExpectedData.Set<Order>().Where(o => o.OrderID < 10300)
                                     .Select(
                                         o => new OrderCountDTO
                                         {

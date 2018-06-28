@@ -1703,7 +1703,7 @@ namespace Microsoft.EntityFrameworkCore.Query
         {
             using (var context = CreateContext())
             {
-                var actual = Fixture.QueryAsserter.SetExtractor.Set<Level1>(context).Select(
+                var actual = Fixture.QueryAsserter2.SetExtractor.Set<Level1>(context).Select(
                     e => new MyOuterDto
                     {
                         Id = e.Id,
@@ -1717,7 +1717,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                             : null
                     }).ToList().OrderBy(e => e.Id + " " + e.Name + " " + e.Inner).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Level1>().Select(
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Level1>().Select(
                     e => new MyOuterDto
                     {
                         Id = e.Id,
@@ -4842,7 +4842,7 @@ namespace Microsoft.EntityFrameworkCore.Query
             using (var context = CreateContext())
             {
                 context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-                var entity = Fixture.QueryAsserter.SetExtractor.Set<Level2>(context).OrderBy(l2 => l2.Id).First();
+                var entity = Fixture.QueryAsserter2.SetExtractor.Set<Level2>(context).OrderBy(l2 => l2.Id).First();
                 var entry = context.ChangeTracker.Entries().Single();
                 Assert.Same(entity, entry.Entity);
 

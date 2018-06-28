@@ -2729,7 +2729,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                     .ToList()
                     .OrderBy(g => g.Key + " " + g.g.Count()).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Order>()
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Order>()
                     .GroupBy(
                         o => new
                         {
@@ -2832,7 +2832,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                         Customer = o.CustomerID
                     }).GroupBy(p => p.Customer).ToList().OrderBy(g => g.Key + " " + g.Count()).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Order>().Select(
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Order>().Select(
                     o => new ProjectedType
                     {
                         Order = o.OrderID,
@@ -2862,7 +2862,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                     .GroupBy(o => o.Order)
                     .SelectMany(g => g).ToList().OrderBy(e => e.Order).ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Order>().Select(
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Order>().Select(
                         o => new ProjectedType
                         {
                             Order = o.OrderID,
@@ -2895,9 +2895,9 @@ namespace Microsoft.EntityFrameworkCore.Query
                                   Os = grp.ToList()
                               }).ToList();
 
-                var expected = (from c in Fixture.QueryAsserter.ExpectedData.Set<Customer>()
+                var expected = (from c in Fixture.QueryAsserter2.ExpectedData.Set<Customer>()
                                     .OrderBy(c => c.CustomerID).Take(5)
-                                join o in Fixture.QueryAsserter.ExpectedData.Set<Order>()
+                                join o in Fixture.QueryAsserter2.ExpectedData.Set<Order>()
                                         .OrderBy(o => o.OrderID).Take(50)
                                     on c.CustomerID equals o.CustomerID
                                 group o by c
@@ -2943,7 +2943,7 @@ namespace Microsoft.EntityFrameworkCore.Query
                         })
                     .ToList();
 
-                var expected = Fixture.QueryAsserter.ExpectedData.Set<Order>()
+                var expected = Fixture.QueryAsserter2.ExpectedData.Set<Order>()
                     .GroupBy(
                         o => new
                         {
