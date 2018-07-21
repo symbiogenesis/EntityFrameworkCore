@@ -156,10 +156,10 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
 
             foreach (var l1 in result)
             {
-                l1.OneToMany_Optional = new List<Level2>();
-                l1.OneToMany_Optional_Self = new List<Level1>();
-                l1.OneToMany_Required = new List<Level2>();
-                l1.OneToMany_Required_Self = new List<Level1>();
+                l1.OneToMany_Optional1 = new List<Level2>();
+                l1.OneToMany_Optional_Self1 = new List<Level1>();
+                l1.OneToMany_Required1 = new List<Level2>();
+                l1.OneToMany_Required_Self1 = new List<Level1>();
             }
 
             return result;
@@ -247,10 +247,10 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
 
             foreach (var l2 in result)
             {
-                l2.OneToMany_Optional = new List<Level3>();
-                l2.OneToMany_Optional_Self = new List<Level2>();
-                l2.OneToMany_Required = new List<Level3>();
-                l2.OneToMany_Required_Self = new List<Level2>();
+                l2.OneToMany_Optional2 = new List<Level3>();
+                l2.OneToMany_Optional_Self2 = new List<Level2>();
+                l2.OneToMany_Required2 = new List<Level3>();
+                l2.OneToMany_Required_Self2 = new List<Level2>();
             }
 
             return result;
@@ -525,50 +525,50 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             IReadOnlyList<Level1> l1s, IReadOnlyList<Level2> l2s, IReadOnlyList<Level3> l3s, IReadOnlyList<Level4> l4s,
             bool tableSplitting)
         {
-            l1s[0].OneToOne_Required_PK = l2s[0];
-            l1s[1].OneToOne_Required_PK = l2s[1];
-            l1s[2].OneToOne_Required_PK = l2s[2];
-            l1s[3].OneToOne_Required_PK = l2s[3];
-            l1s[4].OneToOne_Required_PK = l2s[4];
-            l1s[5].OneToOne_Required_PK = l2s[5];
-            l1s[6].OneToOne_Required_PK = l2s[6];
-            l1s[7].OneToOne_Required_PK = l2s[7];
-            l1s[8].OneToOne_Required_PK = l2s[8];
-            l1s[9].OneToOne_Required_PK = l2s[9];
+            l1s[0].OneToOne_Required_PK1 = l2s[0];
+            l1s[1].OneToOne_Required_PK1 = l2s[1];
+            l1s[2].OneToOne_Required_PK1 = l2s[2];
+            l1s[3].OneToOne_Required_PK1 = l2s[3];
+            l1s[4].OneToOne_Required_PK1 = l2s[4];
+            l1s[5].OneToOne_Required_PK1 = l2s[5];
+            l1s[6].OneToOne_Required_PK1 = l2s[6];
+            l1s[7].OneToOne_Required_PK1 = l2s[7];
+            l1s[8].OneToOne_Required_PK1 = l2s[8];
+            l1s[9].OneToOne_Required_PK1 = l2s[9];
             if (!tableSplitting)
             {
-                l1s[10].OneToOne_Required_PK = l2s[10];
+                l1s[10].OneToOne_Required_PK1 = l2s[10];
             }
 
             if (tableSplitting)
             {
-                l1s[0].OneToOne_Required_FK = l2s[0];
-                l1s[1].OneToOne_Required_FK = l2s[1];
-                l1s[2].OneToOne_Required_FK = l2s[2];
-                l1s[3].OneToOne_Required_FK = l2s[3];
-                l1s[4].OneToOne_Required_FK = l2s[4];
-                l1s[5].OneToOne_Required_FK = l2s[5];
-                l1s[6].OneToOne_Required_FK = l2s[6];
-                l1s[7].OneToOne_Required_FK = l2s[7];
-                l1s[8].OneToOne_Required_FK = l2s[8];
-                l1s[9].OneToOne_Required_FK = l2s[9];
+                l1s[0].OneToOne_Required_FK1 = l2s[0];
+                l1s[1].OneToOne_Required_FK1 = l2s[1];
+                l1s[2].OneToOne_Required_FK1 = l2s[2];
+                l1s[3].OneToOne_Required_FK1 = l2s[3];
+                l1s[4].OneToOne_Required_FK1 = l2s[4];
+                l1s[5].OneToOne_Required_FK1 = l2s[5];
+                l1s[6].OneToOne_Required_FK1 = l2s[6];
+                l1s[7].OneToOne_Required_FK1 = l2s[7];
+                l1s[8].OneToOne_Required_FK1 = l2s[8];
+                l1s[9].OneToOne_Required_FK1 = l2s[9];
             }
             else
             {
-                l1s[0].OneToOne_Required_FK = l2s[9];
-                l1s[1].OneToOne_Required_FK = l2s[8];
-                l1s[2].OneToOne_Required_FK = l2s[7];
-                l1s[3].OneToOne_Required_FK = l2s[6];
-                l1s[4].OneToOne_Required_FK = l2s[5];
-                l1s[5].OneToOne_Required_FK = l2s[4];
-                l1s[6].OneToOne_Required_FK = l2s[3];
-                l1s[7].OneToOne_Required_FK = l2s[2];
-                l1s[8].OneToOne_Required_FK = l2s[1];
-                l1s[9].OneToOne_Required_FK = l2s[0];
-                l1s[10].OneToOne_Required_FK = l2s[10];
+                l1s[0].OneToOne_Required_FK1 = l2s[9];
+                l1s[1].OneToOne_Required_FK1 = l2s[8];
+                l1s[2].OneToOne_Required_FK1 = l2s[7];
+                l1s[3].OneToOne_Required_FK1 = l2s[6];
+                l1s[4].OneToOne_Required_FK1 = l2s[5];
+                l1s[5].OneToOne_Required_FK1 = l2s[4];
+                l1s[6].OneToOne_Required_FK1 = l2s[3];
+                l1s[7].OneToOne_Required_FK1 = l2s[2];
+                l1s[8].OneToOne_Required_FK1 = l2s[1];
+                l1s[9].OneToOne_Required_FK1 = l2s[0];
+                l1s[10].OneToOne_Required_FK1 = l2s[10];
             }
 
-            l1s[0].OneToMany_Required = new List<Level2>
+            l1s[0].OneToMany_Required1 = new List<Level2>
             {
                 l2s[0],
                 l2s[1],
@@ -584,106 +584,106 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
 
             if (!tableSplitting)
             {
-                l1s[0].OneToMany_Required.Add(l2s[10]);
+                l1s[0].OneToMany_Required1.Add(l2s[10]);
             }
 
-            l1s[0].OneToMany_Required_Self = new List<Level1>
+            l1s[0].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[0],
                 l1s[1]
             };
             if (!tableSplitting)
             {
-                l1s[0].OneToMany_Required_Self.Add(l1s[11]);
+                l1s[0].OneToMany_Required_Self1.Add(l1s[11]);
             }
 
-            l1s[1].OneToMany_Required_Self = new List<Level1>
+            l1s[1].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[2]
             };
             if (!tableSplitting)
             {
-                l1s[1].OneToMany_Required_Self.Add(l1s[12]);
+                l1s[1].OneToMany_Required_Self1.Add(l1s[12]);
             }
 
-            l1s[2].OneToMany_Required_Self = new List<Level1>
+            l1s[2].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[3]
             };
-            l1s[3].OneToMany_Required_Self = new List<Level1>
+            l1s[3].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[4]
             };
-            l1s[4].OneToMany_Required_Self = new List<Level1>
+            l1s[4].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[5]
             };
-            l1s[5].OneToMany_Required_Self = new List<Level1>
+            l1s[5].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[6]
             };
-            l1s[6].OneToMany_Required_Self = new List<Level1>
+            l1s[6].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[7]
             };
-            l1s[7].OneToMany_Required_Self = new List<Level1>
+            l1s[7].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[8]
             };
-            l1s[8].OneToMany_Required_Self = new List<Level1>
+            l1s[8].OneToMany_Required_Self1 = new List<Level1>
             {
                 l1s[9]
             };
-            l1s[9].OneToMany_Required_Self = new List<Level1>();
+            l1s[9].OneToMany_Required_Self1 = new List<Level1>();
             if (!tableSplitting)
             {
-                l1s[10].OneToMany_Required_Self = new List<Level1>
+                l1s[10].OneToMany_Required_Self1 = new List<Level1>
                 {
                     l1s[10]
                 };
-                l1s[11].OneToMany_Required_Self = new List<Level1>();
-                l1s[12].OneToMany_Required_Self = new List<Level1>();
+                l1s[11].OneToMany_Required_Self1 = new List<Level1>();
+                l1s[12].OneToMany_Required_Self1 = new List<Level1>();
             }
 
-            l2s[0].OneToOne_Required_PK = l3s[0];
-            l2s[1].OneToOne_Required_PK = l3s[1];
-            l2s[2].OneToOne_Required_PK = l3s[2];
-            l2s[3].OneToOne_Required_PK = l3s[3];
-            l2s[4].OneToOne_Required_PK = l3s[4];
-            l2s[5].OneToOne_Required_PK = l3s[5];
-            l2s[6].OneToOne_Required_PK = l3s[6];
-            l2s[7].OneToOne_Required_PK = l3s[7];
-            l2s[8].OneToOne_Required_PK = l3s[8];
-            l2s[9].OneToOne_Required_PK = l3s[9];
+            l2s[0].OneToOne_Required_PK2 = l3s[0];
+            l2s[1].OneToOne_Required_PK2 = l3s[1];
+            l2s[2].OneToOne_Required_PK2 = l3s[2];
+            l2s[3].OneToOne_Required_PK2 = l3s[3];
+            l2s[4].OneToOne_Required_PK2 = l3s[4];
+            l2s[5].OneToOne_Required_PK2 = l3s[5];
+            l2s[6].OneToOne_Required_PK2 = l3s[6];
+            l2s[7].OneToOne_Required_PK2 = l3s[7];
+            l2s[8].OneToOne_Required_PK2 = l3s[8];
+            l2s[9].OneToOne_Required_PK2 = l3s[9];
 
             if (tableSplitting)
             {
-                l2s[0].OneToOne_Required_FK = l3s[0];
-                l2s[1].OneToOne_Required_FK = l3s[1];
-                l2s[2].OneToOne_Required_FK = l3s[2];
-                l2s[3].OneToOne_Required_FK = l3s[3];
-                l2s[4].OneToOne_Required_FK = l3s[4];
-                l2s[5].OneToOne_Required_FK = l3s[5];
-                l2s[6].OneToOne_Required_FK = l3s[6];
-                l2s[7].OneToOne_Required_FK = l3s[7];
-                l2s[8].OneToOne_Required_FK = l3s[8];
-                l2s[9].OneToOne_Required_FK = l3s[9];
+                l2s[0].OneToOne_Required_FK2 = l3s[0];
+                l2s[1].OneToOne_Required_FK2 = l3s[1];
+                l2s[2].OneToOne_Required_FK2 = l3s[2];
+                l2s[3].OneToOne_Required_FK2 = l3s[3];
+                l2s[4].OneToOne_Required_FK2 = l3s[4];
+                l2s[5].OneToOne_Required_FK2 = l3s[5];
+                l2s[6].OneToOne_Required_FK2 = l3s[6];
+                l2s[7].OneToOne_Required_FK2 = l3s[7];
+                l2s[8].OneToOne_Required_FK2 = l3s[8];
+                l2s[9].OneToOne_Required_FK2 = l3s[9];
             }
             else
             {
-                l2s[0].OneToOne_Required_FK = l3s[9];
-                l2s[1].OneToOne_Required_FK = l3s[8];
-                l2s[2].OneToOne_Required_FK = l3s[7];
-                l2s[3].OneToOne_Required_FK = l3s[6];
-                l2s[4].OneToOne_Required_FK = l3s[5];
-                l2s[5].OneToOne_Required_FK = l3s[4];
-                l2s[6].OneToOne_Required_FK = l3s[3];
-                l2s[7].OneToOne_Required_FK = l3s[2];
-                l2s[8].OneToOne_Required_FK = l3s[1];
-                l2s[9].OneToOne_Required_FK = l3s[0];
+                l2s[0].OneToOne_Required_FK2 = l3s[9];
+                l2s[1].OneToOne_Required_FK2 = l3s[8];
+                l2s[2].OneToOne_Required_FK2 = l3s[7];
+                l2s[3].OneToOne_Required_FK2 = l3s[6];
+                l2s[4].OneToOne_Required_FK2 = l3s[5];
+                l2s[5].OneToOne_Required_FK2 = l3s[4];
+                l2s[6].OneToOne_Required_FK2 = l3s[3];
+                l2s[7].OneToOne_Required_FK2 = l3s[2];
+                l2s[8].OneToOne_Required_FK2 = l3s[1];
+                l2s[9].OneToOne_Required_FK2 = l3s[0];
             }
 
-            l2s[0].OneToMany_Required = new List<Level3>
+            l2s[0].OneToMany_Required2 = new List<Level3>
             {
                 l3s[0],
                 l3s[1],
@@ -697,52 +697,52 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
                 l3s[9]
             };
 
-            l2s[0].OneToMany_Required_Self = new List<Level2>
+            l2s[0].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[0],
                 l2s[1]
             };
             if (!tableSplitting)
             {
-                l2s[0].OneToMany_Required_Self.Add(l2s[10]);
+                l2s[0].OneToMany_Required_Self2.Add(l2s[10]);
             }
 
-            l2s[1].OneToMany_Required_Self = new List<Level2>
+            l2s[1].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[2]
             };
-            l2s[2].OneToMany_Required_Self = new List<Level2>
+            l2s[2].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[3]
             };
-            l2s[3].OneToMany_Required_Self = new List<Level2>
+            l2s[3].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[4]
             };
-            l2s[4].OneToMany_Required_Self = new List<Level2>
+            l2s[4].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[5]
             };
-            l2s[5].OneToMany_Required_Self = new List<Level2>
+            l2s[5].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[6]
             };
-            l2s[6].OneToMany_Required_Self = new List<Level2>
+            l2s[6].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[7]
             };
-            l2s[7].OneToMany_Required_Self = new List<Level2>
+            l2s[7].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[8]
             };
-            l2s[8].OneToMany_Required_Self = new List<Level2>
+            l2s[8].OneToMany_Required_Self2 = new List<Level2>
             {
                 l2s[9]
             };
-            l2s[9].OneToMany_Required_Self = new List<Level2>();
+            l2s[9].OneToMany_Required_Self2 = new List<Level2>();
             if (!tableSplitting)
             {
-                l2s[10].OneToMany_Required_Self = new List<Level2>();
+                l2s[10].OneToMany_Required_Self2 = new List<Level2>();
             }
 
             l3s[0].OneToOne_Required_PK = l4s[0];
@@ -880,33 +880,33 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             IReadOnlyList<Level1> l1s, IReadOnlyList<Level2> l2s, IReadOnlyList<Level3> l3s, IReadOnlyList<Level4> l4s,
             bool tableSplitting)
         {
-            l2s[0].OneToOne_Required_PK_Inverse = l1s[0];
-            l2s[1].OneToOne_Required_PK_Inverse = l1s[1];
-            l2s[2].OneToOne_Required_PK_Inverse = l1s[2];
-            l2s[3].OneToOne_Required_PK_Inverse = l1s[3];
-            l2s[4].OneToOne_Required_PK_Inverse = l1s[4];
-            l2s[5].OneToOne_Required_PK_Inverse = l1s[5];
-            l2s[6].OneToOne_Required_PK_Inverse = l1s[6];
-            l2s[7].OneToOne_Required_PK_Inverse = l1s[7];
-            l2s[8].OneToOne_Required_PK_Inverse = l1s[8];
-            l2s[9].OneToOne_Required_PK_Inverse = l1s[9];
+            l2s[0].OneToOne_Required_PK_Inverse2 = l1s[0];
+            l2s[1].OneToOne_Required_PK_Inverse2 = l1s[1];
+            l2s[2].OneToOne_Required_PK_Inverse2 = l1s[2];
+            l2s[3].OneToOne_Required_PK_Inverse2 = l1s[3];
+            l2s[4].OneToOne_Required_PK_Inverse2 = l1s[4];
+            l2s[5].OneToOne_Required_PK_Inverse2 = l1s[5];
+            l2s[6].OneToOne_Required_PK_Inverse2 = l1s[6];
+            l2s[7].OneToOne_Required_PK_Inverse2 = l1s[7];
+            l2s[8].OneToOne_Required_PK_Inverse2 = l1s[8];
+            l2s[9].OneToOne_Required_PK_Inverse2 = l1s[9];
             if (!tableSplitting)
             {
-                l2s[10].OneToOne_Required_PK_Inverse = l1s[10];
+                l2s[10].OneToOne_Required_PK_Inverse2 = l1s[10];
             }
 
             if (tableSplitting)
             {
-                l2s[0].OneToOne_Required_FK_Inverse = l1s[0];
-                l2s[1].OneToOne_Required_FK_Inverse = l1s[1];
-                l2s[2].OneToOne_Required_FK_Inverse = l1s[2];
-                l2s[3].OneToOne_Required_FK_Inverse = l1s[3];
-                l2s[4].OneToOne_Required_FK_Inverse = l1s[4];
-                l2s[5].OneToOne_Required_FK_Inverse = l1s[5];
-                l2s[6].OneToOne_Required_FK_Inverse = l1s[6];
-                l2s[7].OneToOne_Required_FK_Inverse = l1s[7];
-                l2s[8].OneToOne_Required_FK_Inverse = l1s[8];
-                l2s[9].OneToOne_Required_FK_Inverse = l1s[9];
+                l2s[0].OneToOne_Required_FK_Inverse2 = l1s[0];
+                l2s[1].OneToOne_Required_FK_Inverse2 = l1s[1];
+                l2s[2].OneToOne_Required_FK_Inverse2 = l1s[2];
+                l2s[3].OneToOne_Required_FK_Inverse2 = l1s[3];
+                l2s[4].OneToOne_Required_FK_Inverse2 = l1s[4];
+                l2s[5].OneToOne_Required_FK_Inverse2 = l1s[5];
+                l2s[6].OneToOne_Required_FK_Inverse2 = l1s[6];
+                l2s[7].OneToOne_Required_FK_Inverse2 = l1s[7];
+                l2s[8].OneToOne_Required_FK_Inverse2 = l1s[8];
+                l2s[9].OneToOne_Required_FK_Inverse2 = l1s[9];
 
                 l2s[0].Level1_Required_Id = l1s[0].Id;
                 l2s[1].Level1_Required_Id = l1s[1].Id;
@@ -921,17 +921,17 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             }
             else
             {
-                l2s[9].OneToOne_Required_FK_Inverse = l1s[0];
-                l2s[8].OneToOne_Required_FK_Inverse = l1s[1];
-                l2s[7].OneToOne_Required_FK_Inverse = l1s[2];
-                l2s[6].OneToOne_Required_FK_Inverse = l1s[3];
-                l2s[5].OneToOne_Required_FK_Inverse = l1s[4];
-                l2s[4].OneToOne_Required_FK_Inverse = l1s[5];
-                l2s[3].OneToOne_Required_FK_Inverse = l1s[6];
-                l2s[2].OneToOne_Required_FK_Inverse = l1s[7];
-                l2s[1].OneToOne_Required_FK_Inverse = l1s[8];
-                l2s[0].OneToOne_Required_FK_Inverse = l1s[9];
-                l2s[10].OneToOne_Required_FK_Inverse = l1s[10];
+                l2s[9].OneToOne_Required_FK_Inverse2 = l1s[0];
+                l2s[8].OneToOne_Required_FK_Inverse2 = l1s[1];
+                l2s[7].OneToOne_Required_FK_Inverse2 = l1s[2];
+                l2s[6].OneToOne_Required_FK_Inverse2 = l1s[3];
+                l2s[5].OneToOne_Required_FK_Inverse2 = l1s[4];
+                l2s[4].OneToOne_Required_FK_Inverse2 = l1s[5];
+                l2s[3].OneToOne_Required_FK_Inverse2 = l1s[6];
+                l2s[2].OneToOne_Required_FK_Inverse2 = l1s[7];
+                l2s[1].OneToOne_Required_FK_Inverse2 = l1s[8];
+                l2s[0].OneToOne_Required_FK_Inverse2 = l1s[9];
+                l2s[10].OneToOne_Required_FK_Inverse2 = l1s[10];
 
                 l2s[9].Level1_Required_Id = l1s[0].Id;
                 l2s[8].Level1_Required_Id = l1s[1].Id;
@@ -946,36 +946,36 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
                 l2s[10].Level1_Required_Id = l1s[10].Id;
             }
 
-            l2s[0].OneToMany_Required_Inverse = l1s[0];
-            l2s[1].OneToMany_Required_Inverse = l1s[0];
-            l2s[2].OneToMany_Required_Inverse = l1s[0];
-            l2s[3].OneToMany_Required_Inverse = l1s[0];
-            l2s[4].OneToMany_Required_Inverse = l1s[0];
-            l2s[5].OneToMany_Required_Inverse = l1s[0];
-            l2s[6].OneToMany_Required_Inverse = l1s[0];
-            l2s[7].OneToMany_Required_Inverse = l1s[0];
-            l2s[8].OneToMany_Required_Inverse = l1s[0];
-            l2s[9].OneToMany_Required_Inverse = l1s[0];
+            l2s[0].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[1].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[2].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[3].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[4].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[5].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[6].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[7].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[8].OneToMany_Required_Inverse2 = l1s[0];
+            l2s[9].OneToMany_Required_Inverse2 = l1s[0];
             if (!tableSplitting)
             {
-                l2s[10].OneToMany_Required_Inverse = l1s[0];
+                l2s[10].OneToMany_Required_Inverse2 = l1s[0];
             }
 
-            l1s[0].OneToMany_Required_Self_Inverse = l1s[0];
-            l1s[1].OneToMany_Required_Self_Inverse = l1s[0];
-            l1s[2].OneToMany_Required_Self_Inverse = l1s[1];
-            l1s[3].OneToMany_Required_Self_Inverse = l1s[2];
-            l1s[4].OneToMany_Required_Self_Inverse = l1s[3];
-            l1s[5].OneToMany_Required_Self_Inverse = l1s[4];
-            l1s[6].OneToMany_Required_Self_Inverse = l1s[5];
-            l1s[7].OneToMany_Required_Self_Inverse = l1s[6];
-            l1s[8].OneToMany_Required_Self_Inverse = l1s[7];
-            l1s[9].OneToMany_Required_Self_Inverse = l1s[8];
+            l1s[0].OneToMany_Required_Self_Inverse1 = l1s[0];
+            l1s[1].OneToMany_Required_Self_Inverse1 = l1s[0];
+            l1s[2].OneToMany_Required_Self_Inverse1 = l1s[1];
+            l1s[3].OneToMany_Required_Self_Inverse1 = l1s[2];
+            l1s[4].OneToMany_Required_Self_Inverse1 = l1s[3];
+            l1s[5].OneToMany_Required_Self_Inverse1 = l1s[4];
+            l1s[6].OneToMany_Required_Self_Inverse1 = l1s[5];
+            l1s[7].OneToMany_Required_Self_Inverse1 = l1s[6];
+            l1s[8].OneToMany_Required_Self_Inverse1 = l1s[7];
+            l1s[9].OneToMany_Required_Self_Inverse1 = l1s[8];
             if (!tableSplitting)
             {
-                l1s[11].OneToMany_Required_Self_Inverse = l1s[0];
-                l1s[12].OneToMany_Required_Self_Inverse = l1s[1];
-                l1s[10].OneToMany_Required_Self_Inverse = l1s[10];
+                l1s[11].OneToMany_Required_Self_Inverse1 = l1s[0];
+                l1s[12].OneToMany_Required_Self_Inverse1 = l1s[1];
+                l1s[10].OneToMany_Required_Self_Inverse1 = l1s[10];
             }
 
             l3s[0].OneToOne_Required_PK_Inverse = l2s[0];
@@ -1049,21 +1049,21 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             l3s[8].OneToMany_Required_Inverse = l2s[0];
             l3s[9].OneToMany_Required_Inverse = l2s[0];
 
-            l2s[0].OneToMany_Required_Self_Inverse = l2s[0];
-            l2s[1].OneToMany_Required_Self_Inverse = l2s[0];
+            l2s[0].OneToMany_Required_Self_Inverse2 = l2s[0];
+            l2s[1].OneToMany_Required_Self_Inverse2 = l2s[0];
             if (!tableSplitting)
             {
-                l2s[10].OneToMany_Required_Self_Inverse = l2s[0];
+                l2s[10].OneToMany_Required_Self_Inverse2 = l2s[0];
             }
 
-            l2s[2].OneToMany_Required_Self_Inverse = l2s[1];
-            l2s[3].OneToMany_Required_Self_Inverse = l2s[2];
-            l2s[4].OneToMany_Required_Self_Inverse = l2s[3];
-            l2s[5].OneToMany_Required_Self_Inverse = l2s[4];
-            l2s[6].OneToMany_Required_Self_Inverse = l2s[5];
-            l2s[7].OneToMany_Required_Self_Inverse = l2s[6];
-            l2s[8].OneToMany_Required_Self_Inverse = l2s[7];
-            l2s[9].OneToMany_Required_Self_Inverse = l2s[8];
+            l2s[2].OneToMany_Required_Self_Inverse2 = l2s[1];
+            l2s[3].OneToMany_Required_Self_Inverse2 = l2s[2];
+            l2s[4].OneToMany_Required_Self_Inverse2 = l2s[3];
+            l2s[5].OneToMany_Required_Self_Inverse2 = l2s[4];
+            l2s[6].OneToMany_Required_Self_Inverse2 = l2s[5];
+            l2s[7].OneToMany_Required_Self_Inverse2 = l2s[6];
+            l2s[8].OneToMany_Required_Self_Inverse2 = l2s[7];
+            l2s[9].OneToMany_Required_Self_Inverse2 = l2s[8];
 
             l4s[0].OneToOne_Required_PK_Inverse = l3s[0];
             l4s[1].OneToOne_Required_PK_Inverse = l3s[1];
@@ -1163,19 +1163,19 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             IReadOnlyList<Level1> l1s, IReadOnlyList<Level2> l2s, IReadOnlyList<Level3> l3s, IReadOnlyList<Level4> l4s,
             bool tableSplitting)
         {
-            l1s[0].OneToOne_Optional_PK = l2s[0];
-            l1s[2].OneToOne_Optional_PK = l2s[2];
-            l1s[4].OneToOne_Optional_PK = l2s[4];
-            l1s[6].OneToOne_Optional_PK = l2s[6];
-            l1s[8].OneToOne_Optional_PK = l2s[8];
+            l1s[0].OneToOne_Optional_PK1 = l2s[0];
+            l1s[2].OneToOne_Optional_PK1 = l2s[2];
+            l1s[4].OneToOne_Optional_PK1 = l2s[4];
+            l1s[6].OneToOne_Optional_PK1 = l2s[6];
+            l1s[8].OneToOne_Optional_PK1 = l2s[8];
 
-            l1s[1].OneToOne_Optional_FK = l2s[8];
-            l1s[3].OneToOne_Optional_FK = l2s[6];
-            l1s[5].OneToOne_Optional_FK = l2s[4];
-            l1s[7].OneToOne_Optional_FK = l2s[2];
-            l1s[9].OneToOne_Optional_FK = l2s[0];
+            l1s[1].OneToOne_Optional_FK1 = l2s[8];
+            l1s[3].OneToOne_Optional_FK1 = l2s[6];
+            l1s[5].OneToOne_Optional_FK1 = l2s[4];
+            l1s[7].OneToOne_Optional_FK1 = l2s[2];
+            l1s[9].OneToOne_Optional_FK1 = l2s[0];
 
-            l1s[0].OneToMany_Optional = new List<Level2>
+            l1s[0].OneToMany_Optional1 = new List<Level2>
             {
                 l2s[1],
                 l2s[3],
@@ -1184,83 +1184,83 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
                 l2s[9]
             };
 
-            l1s[1].OneToMany_Optional_Self = new List<Level1>
+            l1s[1].OneToMany_Optional_Self1 = new List<Level1>
             {
                 l1s[0]
             };
-            l1s[3].OneToMany_Optional_Self = new List<Level1>
+            l1s[3].OneToMany_Optional_Self1 = new List<Level1>
             {
                 l1s[2]
             };
-            l1s[5].OneToMany_Optional_Self = new List<Level1>
+            l1s[5].OneToMany_Optional_Self1 = new List<Level1>
             {
                 l1s[4]
             };
-            l1s[7].OneToMany_Optional_Self = new List<Level1>
+            l1s[7].OneToMany_Optional_Self1 = new List<Level1>
             {
                 l1s[6]
             };
-            l1s[9].OneToMany_Optional_Self = new List<Level1>
+            l1s[9].OneToMany_Optional_Self1 = new List<Level1>
             {
                 l1s[8]
             };
 
-            l1s[0].OneToOne_Optional_Self = l1s[9];
-            l1s[1].OneToOne_Optional_Self = l1s[8];
-            l1s[2].OneToOne_Optional_Self = l1s[7];
-            l1s[3].OneToOne_Optional_Self = l1s[6];
-            l1s[4].OneToOne_Optional_Self = l1s[5];
+            l1s[0].OneToOne_Optional_Self1 = l1s[9];
+            l1s[1].OneToOne_Optional_Self1 = l1s[8];
+            l1s[2].OneToOne_Optional_Self1 = l1s[7];
+            l1s[3].OneToOne_Optional_Self1 = l1s[6];
+            l1s[4].OneToOne_Optional_Self1 = l1s[5];
 
-            l2s[0].OneToOne_Optional_PK = l3s[0];
-            l2s[2].OneToOne_Optional_PK = l3s[2];
-            l2s[5].OneToOne_Optional_PK = l3s[4];
-            l2s[7].OneToOne_Optional_PK = l3s[6];
-            l2s[9].OneToOne_Optional_PK = l3s[8];
+            l2s[0].OneToOne_Optional_PK2 = l3s[0];
+            l2s[2].OneToOne_Optional_PK2 = l3s[2];
+            l2s[5].OneToOne_Optional_PK2 = l3s[4];
+            l2s[7].OneToOne_Optional_PK2 = l3s[6];
+            l2s[9].OneToOne_Optional_PK2 = l3s[8];
 
-            l2s[1].OneToOne_Optional_FK = l3s[8];
-            l2s[3].OneToOne_Optional_FK = l3s[6];
-            l2s[4].OneToOne_Optional_FK = l3s[4];
-            l2s[6].OneToOne_Optional_FK = l3s[2];
-            l2s[8].OneToOne_Optional_FK = l3s[0];
+            l2s[1].OneToOne_Optional_FK2 = l3s[8];
+            l2s[3].OneToOne_Optional_FK2 = l3s[6];
+            l2s[4].OneToOne_Optional_FK2 = l3s[4];
+            l2s[6].OneToOne_Optional_FK2 = l3s[2];
+            l2s[8].OneToOne_Optional_FK2 = l3s[0];
 
-            l2s[0].OneToMany_Optional = new List<Level3>
+            l2s[0].OneToMany_Optional2 = new List<Level3>
             {
                 l3s[1],
                 l3s[5],
                 l3s[9]
             };
-            l2s[1].OneToMany_Optional = new List<Level3>
+            l2s[1].OneToMany_Optional2 = new List<Level3>
             {
                 l3s[3],
                 l3s[7]
             };
 
-            l2s[1].OneToMany_Optional_Self = new List<Level2>
+            l2s[1].OneToMany_Optional_Self2 = new List<Level2>
             {
                 l2s[0]
             };
-            l2s[3].OneToMany_Optional_Self = new List<Level2>
+            l2s[3].OneToMany_Optional_Self2 = new List<Level2>
             {
                 l2s[2]
             };
-            l2s[5].OneToMany_Optional_Self = new List<Level2>
+            l2s[5].OneToMany_Optional_Self2 = new List<Level2>
             {
                 l2s[4]
             };
-            l2s[7].OneToMany_Optional_Self = new List<Level2>
+            l2s[7].OneToMany_Optional_Self2 = new List<Level2>
             {
                 l2s[6]
             };
-            l2s[9].OneToMany_Optional_Self = new List<Level2>
+            l2s[9].OneToMany_Optional_Self2 = new List<Level2>
             {
                 l2s[8]
             };
 
-            l2s[0].OneToOne_Optional_Self = l2s[9];
-            l2s[1].OneToOne_Optional_Self = l2s[8];
-            l2s[2].OneToOne_Optional_Self = l2s[7];
-            l2s[3].OneToOne_Optional_Self = l2s[6];
-            l2s[4].OneToOne_Optional_Self = l2s[5];
+            l2s[0].OneToOne_Optional_Self2 = l2s[9];
+            l2s[1].OneToOne_Optional_Self2 = l2s[8];
+            l2s[2].OneToOne_Optional_Self2 = l2s[7];
+            l2s[3].OneToOne_Optional_Self2 = l2s[6];
+            l2s[4].OneToOne_Optional_Self2 = l2s[5];
 
             l3s[0].OneToOne_Optional_PK = l4s[0];
             l3s[2].OneToOne_Optional_PK = l4s[2];
@@ -1336,17 +1336,17 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             IReadOnlyList<Level1> l1s, IReadOnlyList<Level2> l2s, IReadOnlyList<Level3> l3s, IReadOnlyList<Level4> l4s,
             bool tableSplitting)
         {
-            l2s[0].OneToOne_Optional_PK_Inverse = l1s[0];
-            l2s[2].OneToOne_Optional_PK_Inverse = l1s[2];
-            l2s[4].OneToOne_Optional_PK_Inverse = l1s[4];
-            l2s[6].OneToOne_Optional_PK_Inverse = l1s[6];
-            l2s[8].OneToOne_Optional_PK_Inverse = l1s[8];
+            l2s[0].OneToOne_Optional_PK_Inverse2 = l1s[0];
+            l2s[2].OneToOne_Optional_PK_Inverse2 = l1s[2];
+            l2s[4].OneToOne_Optional_PK_Inverse2 = l1s[4];
+            l2s[6].OneToOne_Optional_PK_Inverse2 = l1s[6];
+            l2s[8].OneToOne_Optional_PK_Inverse2 = l1s[8];
 
-            l2s[8].OneToOne_Optional_FK_Inverse = l1s[1];
-            l2s[6].OneToOne_Optional_FK_Inverse = l1s[3];
-            l2s[4].OneToOne_Optional_FK_Inverse = l1s[5];
-            l2s[2].OneToOne_Optional_FK_Inverse = l1s[7];
-            l2s[0].OneToOne_Optional_FK_Inverse = l1s[9];
+            l2s[8].OneToOne_Optional_FK_Inverse2 = l1s[1];
+            l2s[6].OneToOne_Optional_FK_Inverse2 = l1s[3];
+            l2s[4].OneToOne_Optional_FK_Inverse2 = l1s[5];
+            l2s[2].OneToOne_Optional_FK_Inverse2 = l1s[7];
+            l2s[0].OneToOne_Optional_FK_Inverse2 = l1s[9];
 
             l2s[8].Level1_Optional_Id = l1s[1].Id;
             l2s[6].Level1_Optional_Id = l1s[3].Id;
@@ -1354,17 +1354,17 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             l2s[2].Level1_Optional_Id = l1s[7].Id;
             l2s[0].Level1_Optional_Id = l1s[9].Id;
 
-            l2s[1].OneToMany_Optional_Inverse = l1s[0];
-            l2s[3].OneToMany_Optional_Inverse = l1s[0];
-            l2s[5].OneToMany_Optional_Inverse = l1s[0];
-            l2s[7].OneToMany_Optional_Inverse = l1s[0];
-            l2s[9].OneToMany_Optional_Inverse = l1s[0];
+            l2s[1].OneToMany_Optional_Inverse2 = l1s[0];
+            l2s[3].OneToMany_Optional_Inverse2 = l1s[0];
+            l2s[5].OneToMany_Optional_Inverse2 = l1s[0];
+            l2s[7].OneToMany_Optional_Inverse2 = l1s[0];
+            l2s[9].OneToMany_Optional_Inverse2 = l1s[0];
 
-            l1s[0].OneToMany_Optional_Self_Inverse = l1s[1];
-            l1s[2].OneToMany_Optional_Self_Inverse = l1s[3];
-            l1s[4].OneToMany_Optional_Self_Inverse = l1s[5];
-            l1s[6].OneToMany_Optional_Self_Inverse = l1s[7];
-            l1s[8].OneToMany_Optional_Self_Inverse = l1s[9];
+            l1s[0].OneToMany_Optional_Self_Inverse1 = l1s[1];
+            l1s[2].OneToMany_Optional_Self_Inverse1 = l1s[3];
+            l1s[4].OneToMany_Optional_Self_Inverse1 = l1s[5];
+            l1s[6].OneToMany_Optional_Self_Inverse1 = l1s[7];
+            l1s[8].OneToMany_Optional_Self_Inverse1 = l1s[9];
 
             l3s[0].OneToOne_Optional_PK_Inverse = l2s[0];
             l3s[2].OneToOne_Optional_PK_Inverse = l2s[2];
@@ -1390,11 +1390,11 @@ namespace Microsoft.EntityFrameworkCore.TestModels.ComplexNavigationsModel
             l3s[3].OneToMany_Optional_Inverse = l2s[1];
             l3s[7].OneToMany_Optional_Inverse = l2s[1];
 
-            l2s[0].OneToMany_Optional_Self_Inverse = l2s[1];
-            l2s[2].OneToMany_Optional_Self_Inverse = l2s[3];
-            l2s[4].OneToMany_Optional_Self_Inverse = l2s[5];
-            l2s[6].OneToMany_Optional_Self_Inverse = l2s[7];
-            l2s[8].OneToMany_Optional_Self_Inverse = l2s[9];
+            l2s[0].OneToMany_Optional_Self_Inverse2 = l2s[1];
+            l2s[2].OneToMany_Optional_Self_Inverse2 = l2s[3];
+            l2s[4].OneToMany_Optional_Self_Inverse2 = l2s[5];
+            l2s[6].OneToMany_Optional_Self_Inverse2 = l2s[7];
+            l2s[8].OneToMany_Optional_Self_Inverse2 = l2s[9];
 
             l4s[0].OneToOne_Optional_PK_Inverse = l3s[0];
             l4s[2].OneToOne_Optional_PK_Inverse = l3s[2];

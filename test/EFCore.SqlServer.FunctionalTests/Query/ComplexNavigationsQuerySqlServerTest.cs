@@ -1238,10 +1238,10 @@ LEFT JOIN [LevelThree] AS [l1.OneToMany_Optional.OneToOne_Optional_FK] ON [l1.On
             using (var context = CreateContext())
             {
                 var query = context.LevelOne.FromSql("SELECT * FROM [LevelOne]")
-                    .Include(e => e.OneToOne_Optional_FK)
-                    .ThenInclude(e => e.OneToMany_Optional)
-                    .Include(e => e.OneToMany_Optional)
-                    .ThenInclude(e => e.OneToOne_Optional_FK);
+                    .Include(e => e.OneToOne_Optional_FK1)
+                    .ThenInclude(e => e.OneToMany_Optional2)
+                    .Include(e => e.OneToMany_Optional1)
+                    .ThenInclude(e => e.OneToOne_Optional_FK2);
 
                 var results = query.ToList();
 
