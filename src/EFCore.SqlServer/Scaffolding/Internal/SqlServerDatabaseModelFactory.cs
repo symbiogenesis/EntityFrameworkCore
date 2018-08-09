@@ -131,8 +131,7 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Scaffolding.Internal
                 var tableList = tables.ToList();
                 var tableFilter = GenerateTableFilter(tableList.Select(Parse).ToList(), schemaFilter);
 
-                if (Version.TryParse(connection.ServerVersion, out var serverVersion)
-                    && serverVersion.Major >= 11)
+                if (AreSequencesSupported(connection))
                 {
                     foreach (var sequence in GetSequences(connection, schemaFilter, typeAliases))
                     {
@@ -176,6 +175,24 @@ namespace Microsoft.EntityFrameworkCore.SqlServer.Scaffolding.Internal
                     connection.Close();
                 }
             }
+        }
+
+        private bool AreSequencesSupported(DbConnection connection)
+        {
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = "SELECT TOP 1 * FROM sys.sequences";
+
+            try
+            {
+                command.ExecuteReader();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private string GetDefaultSchema(DbConnection connection)
